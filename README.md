@@ -2,13 +2,13 @@
 This is a solution created by Group 49 of DCIT 308 class 0f 2026.
 
 ## Team Members:
-Eunice Adjoa Oyirinnaya Dickson 
-Favour Ackonu 
-Godwin Kweku Morgan 
-Selina Enyonam Abena Kudadze 
-Jenebo Gbalju Cosmos 
-Elliot Datsomor 
-Caleb Setordzi
+Eunice Adjoa Oyirinnaya Dickson;
+Favour Ackonu;
+Godwin Kweku Morgan;
+Selina Enyonam Abena Kudadze; 
+Jenebo Gbalju Cosmos;
+Elliot Datsomor;
+Caleb Setordzi;
 
 ## Task Assigments and Proposed Deadlines
 ### Deadline -> Monday, 7th July, 2025
