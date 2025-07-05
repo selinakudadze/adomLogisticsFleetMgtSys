@@ -2,13 +2,13 @@
 This is a solution created by Group 49 of DCIT 308 class of 2026.
 
 ## Team Members:
-- Eunice Adjoa Oyirinnaya Dickson; 
-- Favour Ackonu; 
-- Godwin Kweku Morgan; 
-- Selina Enyonam Abena Kudadze; 
-- Jenebo Gbalju Cosmos; 
-- Elliot Datsomor; 
--  Caleb Setordzi;
+- Eunice Adjoa Oyirinnaya Dickson 
+- Favour Ackonu
+- Godwin Kweku Morgan
+- Selina Enyonam Abena Kudadze 
+- Jenebo Gbalju Cosmos 
+- Elliot Datsomor 
+- Caleb Setordzi
 
 ## Task Assignments and Proposed Deadlines
 Deadline -> Monday, 7th July, 2025
@@ -31,27 +31,26 @@ Deadline -> Monday, 7th July, 2025
  Every member except Cosmos and Selina then we select the most effective.
 
 ## Sorting and Searching Algorithms Implementations
- Deadline -> Wednesday, 9th July, 2025
- Elliot and Caleb
+Deadline -> Wednesday, 9th July, 2025
+- Elliot and Caleb
 
 ## Main Tasks
- Deadline -> Friday, 11th July, 2025
+Deadline -> Friday, 11th July, 2025
 ### Order Tracking
- Elliot;
- Eunice;
- Favour;
+- Elliot
+- Eunice
+- Favour
 
 ### Driver Assignment
- Cosmos;
- Selina;
- Morgan;
- Caleb;
-
+- Cosmos
+- Selina
+- Morgan
+- Caleb
 
 
 ## Subsequent Meeting Days & Times For Progress Report
-Monday,  7th July, 2025 - 7:40pm;
-Wednesday,  9th July, 2025 (This should be 30 mins) - 8:30pm;
-Saturday,  12th July, 2025 - 4:00pm;
+- Monday,  7th July, 2025 - 7:40pm
+- Wednesday,  9th July, 2025 (This should be 30 mins) - 8:30pm
+- Saturday,  12th July, 2025 - 4:00pm
 
 
