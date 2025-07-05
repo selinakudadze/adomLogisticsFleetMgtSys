@@ -2,13 +2,13 @@
 This is a solution created by Group 49 of DCIT 308 class of 2026.
 
 ## Team Members:
-Eunice Adjoa Oyirinnaya Dickson; \n
-Favour Ackonu; \n
-Godwin Kweku Morgan; \n
-Selina Enyonam Abena Kudadze; \n
-Jenebo Gbalju Cosmos; \n
-Elliot Datsomor; \n
-Caleb Setordzi;
+- Eunice Adjoa Oyirinnaya Dickson; 
+- Favour Ackonu; 
+- Godwin Kweku Morgan; 
+- Selina Enyonam Abena Kudadze; 
+- Jenebo Gbalju Cosmos; 
+- Elliot Datsomor; 
+-  Caleb Setordzi;
 
 ## Task Assignments and Proposed Deadlines
 Deadline -> Monday, 7th July, 2025
