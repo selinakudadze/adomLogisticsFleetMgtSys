@@ -1,5 +1,5 @@
 # Welcome to the Offline Fleet Management System for Adom Logistics at Tema
-This is a solution created by Group 49 of DCIT 308 class 0f 2026.
+This is a solution created by Group 49 of DCIT 308 class of 2026.
 
 ## Team Members:
 Eunice Adjoa Oyirinnaya Dickson;
@@ -10,7 +10,7 @@ Jenebo Gbalju Cosmos;
 Elliot Datsomor;
 Caleb Setordzi;
 
-## Task Assigments and Proposed Deadlines
+## Task Assignments and Proposed Deadlines
 ### Deadline -> Monday, 7th July, 2025
 - Stacks & Queues Implementation:
  Cosmos and Selina
@@ -36,12 +36,12 @@ Caleb Setordzi;
 
 ## Main Tasks
 - Deadline -> Friday, 11th July, 2025
-### Order Tracking:
+### Order Tracking
  Elliot;
  Eunice;
  Favour;
 
-### Driver Assignment:
+### Driver Assignment
  Cosmos;
  Selina;
  Morgan;
