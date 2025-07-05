@@ -31,9 +31,10 @@ Caleb Setordzi;
  Every member except Cosmos and Selina then we select the most effective.
 
 ## Sorting and Searching Algorithms Implementations
-### Deadline -> Wednesday, 9th July, 2025:
+### Deadline -> Wednesday, 9th July, 2025
  Elliot and Caleb
 
+## Main Tasks
 ### Deadline -> Friday, 11th July, 2025
 - Order Tracking:
  Elliot
