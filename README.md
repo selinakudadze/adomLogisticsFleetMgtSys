@@ -35,17 +35,17 @@ Caleb Setordzi;
  Elliot and Caleb
 
 ## Main Tasks
-### Deadline -> Friday, 11th July, 2025
-- Order Tracking:
- Elliot
- Eunice
- Favour
+- Deadline -> Friday, 11th July, 2025
+### Order Tracking:
+ Elliot;
+ Eunice;
+ Favour;
 
-- Driver Assignment:
- Cosmos
- Selina
- Morgan
- Caleb
+### Driver Assignment:
+ Cosmos;
+ Selina;
+ Morgan;
+ Caleb;
 
 
 
