@@ -49,6 +49,7 @@ public class MinHeap {
     private void heapifyDown(int i) {
         int smallest = i;
         int l = left(i);
+
         int r = right(i);
 
         if (l < size && heap[l].compareTo(heap[smallest]) < 0) {

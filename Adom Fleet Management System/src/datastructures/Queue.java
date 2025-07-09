@@ -1,7 +1,5 @@
 package datastructures;
 
-
-
 public class Queue<T> {
     /**
      * Our Queue uses the Node class
