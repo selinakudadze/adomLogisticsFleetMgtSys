@@ -14,7 +14,7 @@ public class Queue<T> {
         this.tail = null;
     }
 
-    private void enqueue(T entity) {
+    public void enqueue(T entity) {
         Node<T> currentNode = new Node<T>(entity);
 
         //We use the tail to track the current node
@@ -28,7 +28,7 @@ public class Queue<T> {
         }
     }
 
-    private Node<T> dequeue() {
+    public Node<T> dequeue() {
         Node<T> currentNode = this.head;
 
         if(currentNode == null){
@@ -41,22 +41,22 @@ public class Queue<T> {
         return currentNode;
     }
 
-    private T front() {
+    public T front() {
         //Returns the first element in the Queue
         return this.head.entity;
     }
 
-    private T back() {
+    public T back() {
         //Returns the last element in the queue
         return this.tail.entity;
     }
 
-    private boolean isEmpty(){
+    public boolean isEmpty(){
         if(this.head == null) return true;
         else return false;
     }
 
-    private int size(){
+    public int size(){
         // This method returns the size of the queue(That is, the number of elements in the queue)
 
         int size_counter=0;

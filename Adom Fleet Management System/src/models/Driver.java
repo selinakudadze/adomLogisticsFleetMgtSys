@@ -5,7 +5,7 @@ import datastructures.LinkedList;
 public class Driver{
 
     public enum OrderStatus{
-        INTRANSIT,
+        IN_TRANSIT,
         DELIVERED,
         REROUTED
 
@@ -17,7 +17,7 @@ public class Driver{
         OFF_DUTY,
     }
 
-    private int driverID;
+    public String driverID;
     private String driverName;
     private String licenseTpye;
     private int assignedVehicleID;
@@ -30,7 +30,7 @@ public class Driver{
 
 
     //when we instantiate a driver, we will read from the text file(data from the text file will be used to instantiate drivers
-    public Driver(int driverID,String driverName,String licenseTpye,String avaliability,String location){
+    public Driver(String driverID,String driverName,String licenseTpye,String avaliability,String location){
         this.driverID=driverID;
         this.driverName=driverName;
         this.licenseTpye=licenseTpye;
@@ -54,6 +54,10 @@ public class Driver{
     public void updateAvailability(AvailabilityStatus status){
         this.availability=status.toString();
 
+    }
+
+    public String getAvailability(){
+        return this.availability;
     }
 
     public void addExperience(String location){
