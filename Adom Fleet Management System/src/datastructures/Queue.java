@@ -1,4 +1,4 @@
-package Stacks_and_Queues;
+package datastructures;
 
 public class Queue<T> {
     /**
@@ -92,5 +92,6 @@ public class Queue<T> {
         System.out.println("This is the last element "+queue_test.back());
         queue_test.enqueue(-2);
         System.out.println("Size of the queue is "+queue_test.size());
+        System.out.println(queue_test.isEmpty());
     }
 }
