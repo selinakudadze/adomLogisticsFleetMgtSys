@@ -1,6 +1,7 @@
-package Stacks_and_Queues;
+package datastructures;
 
 public class Node<T>{
+
     /** This class has attributes,
      * entity( which takes in objects of the various classes-Vehicle,Order and Drivers)
      * and nextNode
