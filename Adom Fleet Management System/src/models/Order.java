@@ -6,7 +6,7 @@ import java.time.Duration;
 public class Order {
     private int orderId;
     private String clientName;
-    private String assignedDriver; 
+    private String assignedDriver;
     private String origin;
     private String destination;
     private String deliveryStatus;
@@ -18,20 +18,37 @@ public class Order {
     private double originLongitude;
     private double destinationLatitude;
     private double destinationLongitude;
-
     private double currentLatitude;
     private double currentLongitude;
 
-    public Order(int orderId, String clientName, String origin, String destination, LocalDateTime scheduledDateTime) {
+    public Order(
+        int orderId,
+        String clientName,
+        String origin,
+        String destination,
+        LocalDateTime scheduledDateTime,
+        double originLatitude,
+        double originLongitude,
+        double destinationLatitude,
+        double destinationLongitude
+    ) {
         this.orderId = orderId;
         this.clientName = clientName;
         this.origin = origin;
         this.destination = destination;
         this.scheduledDateTime = scheduledDateTime;
-        this.deliveryStatus = "Scheduled"; 
+        this.deliveryStatus = "Scheduled";
+
+        this.originLatitude = originLatitude;
+        this.originLongitude = originLongitude;
+        this.destinationLatitude = destinationLatitude;
+        this.destinationLongitude = destinationLongitude;
+        this.currentLatitude = originLatitude;
+        this.currentLongitude = originLongitude;
     }
 
-    // --- Getters and Setters ---
+    // Getters and setters
+
     public int getOrderId() {
         return orderId;
     }
@@ -91,62 +108,41 @@ public class Order {
         return Duration.between(scheduledDateTime, pickupTime);
     }
 
-    public void assignToDriver(String driverName) {
-        this.assignedDriver = driverName;
-    }
-
-    public void updateDeliveryStatus(String newStatus) {
-        this.deliveryStatus = newStatus;
-    }
-
-    // --- Location Methods ---
-
     public double getOriginLatitude() {
         return originLatitude;
-    }
-
-    public void setOriginLatitude(double originLatitude) {
-        this.originLatitude = originLatitude;
     }
 
     public double getOriginLongitude() {
         return originLongitude;
     }
 
-    public void setOriginLongitude(double originLongitude) {
-        this.originLongitude = originLongitude;
-    }
-
     public double getDestinationLatitude() {
         return destinationLatitude;
-    }
-
-    public void setDestinationLatitude(double destinationLatitude) {
-        this.destinationLatitude = destinationLatitude;
     }
 
     public double getDestinationLongitude() {
         return destinationLongitude;
     }
 
-    public void setDestinationLongitude(double destinationLongitude) {
-        this.destinationLongitude = destinationLongitude;
-    }
-
     public double getCurrentLatitude() {
         return currentLatitude;
-    }
-
-    public void setCurrentLatitude(double currentLatitude) {
-        this.currentLatitude = currentLatitude;
     }
 
     public double getCurrentLongitude() {
         return currentLongitude;
     }
 
-    public void setCurrentLongitude(double currentLongitude) {
-        this.currentLongitude = currentLongitude;
+    public void updateCurrentLocation(double latitude, double longitude) {
+        this.currentLatitude = latitude;
+        this.currentLongitude = longitude;
+    }
+
+    public void assignToDriver(String driverName) {
+        this.assignedDriver = driverName;
+    }
+
+    public void updateDeliveryStatus(String newStatus) {
+        this.deliveryStatus = newStatus;
     }
 
     @Override
