@@ -30,7 +30,7 @@ public class Driver{
 
 
     //when we instantiate a driver, we will read from the text file(data from the text file will be used to instantiate drivers
-    public Driver(String driverID,String driverName,String licenseTpye,String avaliability,String location){
+    public Driver(String driverID,String driverName,String licenseTpye,String avaliability,String location,LinkedList<String> experience){
         this.driverID=driverID;
         this.driverName=driverName;
         this.licenseTpye=licenseTpye;
@@ -39,6 +39,7 @@ public class Driver{
         this.orderStatus=null;
         this.availability=avaliability;
         this.currentDriverLocation=location;
+        this.experience=experience;
         //this.proximity???
 
     }
@@ -63,6 +64,10 @@ public class Driver{
     public void addExperience(String location){
         experience.add(location);
         //write method to add location to experience in text file needed
+    }
+
+    public boolean searchExperience(String orderOrigin){
+        return experience.search(orderOrigin);
     }
 
 

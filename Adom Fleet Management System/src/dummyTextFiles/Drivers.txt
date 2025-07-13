@@ -1,10 +1,10 @@
-D001;Selina Kudadze;Class B;ON_DUTYAccra;Uber,Bolt,Private
-D002;Kwame Asante;Class C;ON_DUTYKumasi;Yango,VIP
-D003;Ama Mensah;Class A;OFF_DUTY;Takoradi;School Bus,Delivery Truck
-D004;Yaw Owusu;Class B;ON_DUTYTamale;Bolt,Logistics
-D005;Abena Serwaa;Class C;OFF_DUTY;Cape Coast;Taxi,Private
-D006;Kofi Adu;Class D;ON_DUTY;Sunyani;VIP,Uber
-D007;Efua Nyarko;Class B; ON_DUTY;Ho;Private,Company Driver
-D008;Kojo Mensah;Class C;OFF_DUTY;Tema;Delivery Van,VIP
-D009;Akosua Boateng;Class A;ON_DUTY;Wa;School Bus,Private,Bolt
-D010;Nana Yaw;Class B;OFF_DUTY;Uber,Bolt,Yango
+D001;Selina Kudadze;Class B;ON_DUTY;Achimota;Accra,Kpedze
+D002;Kwame Asante;Class C;ON_DUTY;Nsawam;Kumasi,Nsawam
+D003;Ama Mensah;Class A;OFF_DUTY;Teshi;Takoradi,Pokuasi
+D004;Yaw Owusu;Class B;ON_DUTY;Legon;Tamale,Sapeiman
+D005;Abena Serwaa;Class C;OFF_DUTY;Oyarifa;Cape Coast,Kumasi
+D006;Kofi Adu;Class D;ON_DUTY;Cape Coast;Sunyani,Oyarifa
+D007;Efua Nyarko;Class B;ON_DUTY;Dome;Ho,Kaneshi
+D008;Kojo Mensah;Class C;OFF_DUTY;Haatso;Tema;,Achimota
+D009;Akosua Boateng;Class A;ON_DUTY;La;Wa,Legon
+D010;Nana Yaw;Class B;OFF_DUTY;Madina;Dome,Lapaz

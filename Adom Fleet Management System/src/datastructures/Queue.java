@@ -7,11 +7,13 @@ public class Queue<T> {
 
     public Node<T> head;
     public Node<T> tail;
+    int size;
 
 
     public Queue() {
         this.head = null;
         this.tail = null;
+        this.size=0;
     }
 
     public void enqueue(T entity) {
@@ -26,6 +28,7 @@ public class Queue<T> {
             this.tail.nextNode = currentNode;
             this.tail = currentNode;
         }
+        size++;
     }
 
     public Node<T> dequeue() {
@@ -38,6 +41,7 @@ public class Queue<T> {
             this.head = this.head.nextNode;
             currentNode.nextNode = null;
         }
+        size--;
         return currentNode;
     }
 
@@ -58,21 +62,11 @@ public class Queue<T> {
 
     public int size(){
         // This method returns the size of the queue(That is, the number of elements in the queue)
+        return size;
+    }
 
-        int size_counter=0;
-        Node<T> currentNode = this.head;
-
-        if(this.head== null) return 0;
-        else{
-            while(true){
-                if(currentNode != null) {
-                    size_counter += 1;
-                    currentNode = currentNode.nextNode;
-                }else break;
-            }
-        }
-        return size_counter;
-
+    public T next(){
+        return head.nextNode.entity;
     }
 
     public static void main(String[] args){
