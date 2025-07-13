@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 import java.time.Duration;
 
 public class Order {
+
+    public enum DeliveryStatus{
+        IN_TRANSIT,
+        DELIVERED,
+        REROUTED
+    }
     private int orderId;
     private String clientName;
     private String assignedDriver; 
@@ -49,9 +55,7 @@ public class Order {
         return destination;
     }
 
-    public String getDeliveryStatus() {
-        return deliveryStatus;
-    }
+    public String getDeliveryStatus(){return this.deliveryStatus.toString();}
 
     public void setDeliveryStatus(String deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
@@ -89,9 +93,10 @@ public class Order {
         this.assignedDriver = driverName;
     }
 
-    public void updateDeliveryStatus(String newStatus) {
-        this.deliveryStatus = newStatus;
+    public void updateDeliveryStatus(DeliveryStatus newStatus) {
+        this.deliveryStatus = newStatus.toString();
     }
+
 
     
     @Override

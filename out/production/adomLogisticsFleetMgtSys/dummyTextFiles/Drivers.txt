@@ -5,6 +5,6 @@ D004;Yaw Owusu;Class B;ON_DUTY;Legon;Tamale,Sapeiman
 D005;Abena Serwaa;Class C;OFF_DUTY;Oyarifa;Cape Coast,Kumasi
 D006;Kofi Adu;Class D;ON_DUTY;Cape Coast;Sunyani,Oyarifa
 D007;Efua Nyarko;Class B;ON_DUTY;Dome;Ho,Kaneshi
-D008;Kojo Mensah;Class C;OFF_DUTY;Haatso;Tema;,Achimota
-D009;Akosua Boateng;Class A;ON_DUTY;La;Wa,Legon
+D008;Kojo Mensah;Class C;OFF_DUTY;Haatso;Tema,Achimota
+D009;Akosua Boateng;Class A;ON_DUTY;La;Wa,Legon,New Junction
 D010;Nana Yaw;Class B;OFF_DUTY;Madina;Dome,Lapaz
