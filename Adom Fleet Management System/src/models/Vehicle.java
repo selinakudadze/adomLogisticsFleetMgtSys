@@ -10,10 +10,12 @@ public class Vehicle {
     private float fuelUse;
     private String assignedDriverId;
     private HashMap<Integer, Maintenance> maintenanceHistory; // Key: mileageAtService, Value: Maintenance object
-    private double[] currentLocation = new double[2]; // [longitude , latitude]
+    // [longitude , latitude]
+    private double currentLong;
+    private double currentLat;
     private String currentDriver;
 
-    public Vehicle(int vehicleId, String registrationNumber, String vehicleType, int mileage, float fuelUse, double currentLocLongitude, double currentLocLatitude, String currentDriver) {
+    public Vehicle(int vehicleId, String registrationNumber, String vehicleType, int mileage, float fuelUse, double currentLong, double currentLat, String currentDriver) {
         this.vehicleId = vehicleId;
         this.registrationNumber = registrationNumber;
         this.vehicleType = registrationNumber;
@@ -21,8 +23,8 @@ public class Vehicle {
         this.fuelUse = fuelUse;
         this.assignedDriverId = null; // No driver assigned by default
         this.maintenanceHistory = new HashMap<>();
-        this.currentLocation[0] = currentLocLongitude; // longitude
-        this.currentLocation[1] = currentLocLatitude; //latitude
+        this.currentLong = currentLong;
+        this.currentLat = currentLat;
         this.currentDriver = currentDriver;
     }
 
@@ -82,16 +84,15 @@ public class Vehicle {
     public float getFuelUse() { return fuelUse; }
     public String getAssignedDriverId() { return assignedDriverId; }
     public HashMap<Integer, Maintenance> getMaintenanceHistory() { return maintenanceHistory; }
-    public double[] getLocation() { return currentLocation; }
+    public double getCurrentLat() { return currentLat; }
+    public double getCurrentLong() { return currentLong; }
     public String getCurrentDriver()  { return currentDriver; }
 
     // Setters
     public void setAssignedDriverId(String assignedDriverId) { this.assignedDriverId = assignedDriverId; }
     public void setMileage(int mileage) { this.mileage = mileage; }
     public void setFuelUse(float fuelUse) { this.fuelUse = fuelUse; }
-    public void setLocation(double currentLocLongitude, double currentLocLatitude) {
-        this.currentLocation[0] = currentLocLongitude;
-        this.currentLocation[1] = currentLocLatitude;
-    }
+    public void setCurrentLat(double currentLat) {this.currentLat = currentLat;}
+    public void setCurrentLong(double currentLong) {this.currentLong = currentLong;}
     public void setCurrentDriver(String currentDriver) { this.currentDriver = currentDriver;}
 }
