@@ -11,8 +11,9 @@ public class Vehicle {
     private String assignedDriverId;
     private HashMap<Integer, Maintenance> maintenanceHistory; // Key: mileageAtService, Value: Maintenance object
     private double[] currentLocation = new double[2]; // [longitude , latitude]
+    private String currentDriver;
 
-    public Vehicle(int vehicleId, String registrationNumber, String vehicleType, int mileage, float fuelUse, double currentLocLongitude, double currentLocLatitude) {
+    public Vehicle(int vehicleId, String registrationNumber, String vehicleType, int mileage, float fuelUse, double currentLocLongitude, double currentLocLatitude, String currentDriver) {
         this.vehicleId = vehicleId;
         this.registrationNumber = registrationNumber;
         this.vehicleType = registrationNumber;
@@ -22,6 +23,7 @@ public class Vehicle {
         this.maintenanceHistory = new HashMap<>();
         this.currentLocation[0] = currentLocLongitude; // longitude
         this.currentLocation[1] = currentLocLatitude; //latitude
+        this.currentDriver = currentDriver;
     }
 
     public boolean canBeAssignedToDriver() {
@@ -81,6 +83,7 @@ public class Vehicle {
     public String getAssignedDriverId() { return assignedDriverId; }
     public HashMap<Integer, Maintenance> getMaintenanceHistory() { return maintenanceHistory; }
     public double[] getLocation() { return currentLocation; }
+    public String getCurrentDriver()  { return currentDriver; }
 
     // Setters
     public void setAssignedDriverId(String assignedDriverId) { this.assignedDriverId = assignedDriverId; }
@@ -90,4 +93,5 @@ public class Vehicle {
         this.currentLocation[0] = currentLocLongitude;
         this.currentLocation[1] = currentLocLatitude;
     }
+    public void setCurrentDriver(String currentDriver) { this.currentDriver = currentDriver;}
 }
