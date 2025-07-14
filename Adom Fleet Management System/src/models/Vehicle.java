@@ -2,7 +2,7 @@ package models;
 
 import datastructures.HashMap;
 
-public class Vehicle {
+public class Vehicle implements Comparable<Vehicle>{
     private int vehicleId;
     private String registrationNumber;
     private String vehicleType;
@@ -10,12 +10,15 @@ public class Vehicle {
     private float fuelUse;
     private String assignedDriverId;
     private HashMap<Integer, Maintenance> maintenanceHistory; // Key: mileageAtService, Value: Maintenance object
-    // [longitude , latitude]
-    private double currentLong;
-    private double currentLat;
+    private double currentLong; // longitude
+    private double currentLat; // latitude
     private String currentDriver;
+    private int lastServiceDate; // days since last service
 
-    public Vehicle(int vehicleId, String registrationNumber, String vehicleType, int mileage, float fuelUse, double currentLong, double currentLat, String currentDriver) {
+    public Vehicle(int vehicleId, String registrationNumber,
+                   String vehicleType, int mileage, float fuelUse,
+                   double currentLong, double currentLat,
+                   String currentDriver, int lastServiceDate) {
         this.vehicleId = vehicleId;
         this.registrationNumber = registrationNumber;
         this.vehicleType = registrationNumber;
@@ -26,6 +29,7 @@ public class Vehicle {
         this.currentLong = currentLong;
         this.currentLat = currentLat;
         this.currentDriver = currentDriver;
+        this.lastServiceDate = lastServiceDate;
     }
 
     public boolean canBeAssignedToDriver() {
@@ -76,6 +80,22 @@ public class Vehicle {
         return result;
     }
 
+    @Override
+    public int compareTo(Vehicle other) {
+        // Prioritize by mileage (higher mileage first), then by
+        // lastServiceDate (higher days since service)
+        if (this.mileage != other.mileage) {
+            return Integer.compare(other.mileage, this.mileage);
+            // Higher mileage = higher priority
+        }
+        return Integer.compare(other.lastServiceDate, this.lastServiceDate);
+    }
+
+    @Override
+    public String toString() {
+        return registrationNumber + "| Mileage: " + " | LastService: " + lastServiceDate + " | FuelUse: " + fuelUse + " | Location: (" + currentLong + ", " + currentLat + ")";
+    }
+
     // Getters
     public int getVehicleId() { return vehicleId;}
     public String getRegistrationNumber() { return registrationNumber; }
@@ -87,6 +107,8 @@ public class Vehicle {
     public double getCurrentLat() { return currentLat; }
     public double getCurrentLong() { return currentLong; }
     public String getCurrentDriver()  { return currentDriver; }
+    public int getLastServiceDate() { return lastServiceDate;}
+
 
     // Setters
     public void setAssignedDriverId(String assignedDriverId) { this.assignedDriverId = assignedDriverId; }
@@ -95,4 +117,5 @@ public class Vehicle {
     public void setCurrentLat(double currentLat) {this.currentLat = currentLat;}
     public void setCurrentLong(double currentLong) {this.currentLong = currentLong;}
     public void setCurrentDriver(String currentDriver) { this.currentDriver = currentDriver;}
+    public void setLastServiceDate(int lastServiceDate) { this.lastServiceDate = lastServiceDate;}
 }
