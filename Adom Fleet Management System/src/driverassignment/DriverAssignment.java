@@ -97,19 +97,19 @@ public class DriverAssignment {
         DriverAssignment driverAssignment=new DriverAssignment();
         driverAssignment.LoadAvailableDrivers();
 
-        Order order=new Order(1121,"SEAK","Dome","Kpedze",null);
+        Order order=new Order(1121,"SEAK","Dome","Kpedze",null,0,0,0,0);
         driverAssignment.assignDriverToOrder(order);
 
-        Order order_1=new Order(1122,"SEAK","Dome","Nsawam",null);
+        Order order_1=new Order(1122,"SEAK","Dome","Nsawam",null,0,0,0,0);
         driverAssignment.assignDriverToOrder(order_1);
 
-        Order order_2=new Order(1123,"SEAK_2","Ho","New Junction",null);
+        Order order_2=new Order(1123,"SEAK_2","Ho","New Junction",null,0,0,0,0);
         driverAssignment.assignDriverToOrder(order_2);
 
-        Order order_3=new Order(1124,"SEAK_3","Dome","Kpedze",null);
+        Order order_3=new Order(1124,"SEAK_3","Dome","Kpedze",null,0,0,0,0);
         driverAssignment.assignDriverToOrder(order_3);
 
-        Order order_4=new Order(1125,"SEAK_3","Dome","Asamankesi",null);
+        Order order_4=new Order(1125,"SEAK_3","Dome","Asamankesi",null,0,0,0,0);
         driverAssignment.assignDriverToOrder(order_4);
     }
         //System.out.println("Available Drivers Loaded");

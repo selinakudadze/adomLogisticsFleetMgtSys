@@ -7,6 +7,7 @@ public class Order {
     private int orderId;
     private String clientName;
     private String assignedDriver;
+
     public enum DeliveryStatus{
         IN_TRANSIT,
         DELIVERED,
@@ -67,7 +68,7 @@ public class Order {
         this.origin = origin;
         this.destination = destination;
         this.scheduledDateTime = scheduledDateTime;
-        this.deliveryStatus = "Scheduled";
+        //this.deliveryStatus = "Scheduled";
         this.originLatitude = originLatitude;
         this.originLongitude = originLongitude;
         this.destinationLatitude = destinationLatitude;
@@ -102,6 +103,7 @@ public class Order {
     }
 
     public String getDeliveryStatus() { return deliveryStatus; }
+    public void setDeliveryStatus(DeliveryStatus status){this.deliveryStatus = status.toString();}
 
     public void setDeliveryStatus(String deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
@@ -169,7 +171,7 @@ public class Order {
         this.assignedDriver = driverName;
     }
 
-    public void updateDeliveryStatus(String newStatus) { this.deliveryStatus = newStatus; }
+    public void updateDeliveryStatus(DeliveryStatus newStatus) { this.deliveryStatus = newStatus.toString(); }
 
 
   

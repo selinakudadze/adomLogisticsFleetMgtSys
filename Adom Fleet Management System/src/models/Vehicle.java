@@ -100,7 +100,7 @@ public class Vehicle implements Comparable<Vehicle>{
     public int getVehicleId() { return vehicleId;}
     public String getRegistrationNumber() { return registrationNumber; }
     public String getVehicleType() { return vehicleType;}
-    public int mileage() { return mileage; }
+    public int getMileage() { return mileage; }
     public float getFuelUse() { return fuelUse; }
     public String getAssignedDriverId() { return assignedDriverId; }
     public HashMap<Integer, Maintenance> getMaintenanceHistory() { return maintenanceHistory; }
