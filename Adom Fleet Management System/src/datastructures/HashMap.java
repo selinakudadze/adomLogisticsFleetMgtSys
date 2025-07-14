@@ -84,3 +84,6 @@ public class HashMap<K, V> {
 }
 
 
+//Average Time Complexity: O(1) for put, get, and remove operations due to the use of a hash table.
+// Worst Case Time Complexity: O(n) if all keys hash to the same bucket (rare in practice with a good hash function).
+//Space Complexity: O(n) where n is the number of key-value pairs stored in the hash map.
