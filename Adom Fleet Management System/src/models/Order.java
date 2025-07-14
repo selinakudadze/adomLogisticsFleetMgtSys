@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.Duration;
 
 public class Order {
-
     private int orderId;
     private String clientName;
     private String assignedDriver;
@@ -13,7 +12,6 @@ public class Order {
         DELIVERED,
         REROUTED
     }
-
     private String origin;
     private String destination;
     private String deliveryStatus;
@@ -26,6 +24,7 @@ public class Order {
     private double destinationLongitude;
     private double currentLatitude;
     private double currentLongitude;
+
 
 //    public enum DeliveryStatus{
 //        IN_TRANSIT,
@@ -77,7 +76,7 @@ public class Order {
         this.currentLongitude = originLongitude;
     }
 
-    
+    // Getters and setters    
     public int getOrderId() {
         return orderId;
     }
@@ -135,6 +134,8 @@ public class Order {
         return Duration.between(scheduledDateTime, pickupTime);
     }
 
+
+
     public double getOriginLatitude() {
         return originLatitude;
     }
@@ -171,7 +172,7 @@ public class Order {
     public void updateDeliveryStatus(String newStatus) { this.deliveryStatus = newStatus; }
 
 
-    
+  
     @Override
     public String toString() {
         return "Order ID: " + orderId +
