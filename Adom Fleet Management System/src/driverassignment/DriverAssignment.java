@@ -1,0 +1,120 @@
+package driverassignment;
+
+
+import datastructures.Queue;
+import datastructures.Node;
+import models.Driver;
+import models.Order;
+import datastructures.LinkedList;
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class DriverAssignment {
+    Queue<Driver> driverQueue=new Queue<>();
+    Queue<Driver> assignedDriversQueue=new Queue<>();
+
+    public void LoadAvailableDrivers(){
+        try{
+            File driverFile=new File("Adom Fleet Management System/src/dummyTextFiles/Drivers.txt");
+            Scanner driverScanner =new Scanner(driverFile);
+
+
+            while(driverScanner.hasNextLine()){
+                String[] fields=driverScanner.nextLine().split(";");
+                LinkedList<String> experience=new LinkedList<>();
+
+                if (fields[3].equals("ON_DUTY")) {
+                    String[] experienceList=fields[5].split(",");
+                    int j=0;
+
+                    while(j<experienceList.length){
+                        experience.add(experienceList[j]);
+                        j++;
+                    }
+                    Driver driver = new Driver(fields[0],fields[1],fields[2],fields[3],fields[4],experience);
+                    driverQueue.enqueue(driver);
+                }
+            }
+            driverScanner.close();
+        }
+        catch(FileNotFoundException e){
+            System.out.println("Drivers.txt File Not Found");
+        }
+        }
+
+    public void assignDriverToOrder(Order order){
+        //Assignment based on Experience
+        //Try proximity later
+        Driver originalHead=driverQueue.front();
+        Queue<Driver> placeHolderDriverQueue=new Queue<>();
+        Driver currentDriver=driverQueue.dequeue().entity;
+
+        System.out.println("Order "+order.getOrderId()+" is going to "+order.getDestination());
+        while(currentDriver != null){
+            if(currentDriver.searchExperience(order.getDestination())){
+                //if the driver has been to that location
+                currentDriver.setAssignOrderID(order.getOrderId());
+                System.out.println("The order "+ order.getOrderId()+" has been assigned to "+currentDriver.getDriverID());
+                assignedDriversQueue.enqueue(currentDriver);
+                order.setAssignedDriver(currentDriver.getDriverID());
+                order.updateDeliveryStatus(Order.DeliveryStatus.IN_TRANSIT);
+                currentDriver.updateAvailability(Driver.AvailabilityStatus.OFF_DUTY);//changes the status of the driver when assigned to an order
+                currentDriver.updateOrderStatus(Driver.OrderStatus.IN_TRANSIT);//update the order status of the Driver
+
+
+                if(originalHead.getDriverID().equals(currentDriver.getDriverID())){
+                    return;
+                }else{
+                    while(!driverQueue.isEmpty()){
+                        Driver dequeuedDriver=driverQueue.dequeue().entity;
+                        System.out.println("The "+ dequeuedDriver.getDriverID()+" driver was added to the other queue");
+                        placeHolderDriverQueue.enqueue(dequeuedDriver);
+                    }break;
+                }
+
+            }else{
+                placeHolderDriverQueue.enqueue(currentDriver);
+                System.out.println("The "+ currentDriver.getDriverID()+" driver was added to the other queue");
+                if(driverQueue.isEmpty()){
+                    System.out.println("There are no available drivers to be assigned order "+order.getOrderId()+" based on EXPERIENCE. Try proximity");
+                    break;
+                }
+                Driver nextDriver=driverQueue.dequeue().entity;
+                currentDriver=nextDriver;
+                System.out.println("The next driver to check is "+currentDriver.getDriverID());
+            }
+            //what if none of the drivers have been to the order destination?
+            //Use proximity?
+        }
+        driverQueue=placeHolderDriverQueue;
+
+    }
+
+    public static void main(String[] args){
+        DriverAssignment driverAssignment=new DriverAssignment();
+        driverAssignment.LoadAvailableDrivers();
+
+        Order order=new Order(1121,"SEAK","Dome","Kpedze",null);
+        driverAssignment.assignDriverToOrder(order);
+
+        Order order_1=new Order(1122,"SEAK","Dome","Nsawam",null);
+        driverAssignment.assignDriverToOrder(order_1);
+
+        Order order_2=new Order(1123,"SEAK_2","Ho","New Junction",null);
+        driverAssignment.assignDriverToOrder(order_2);
+
+        Order order_3=new Order(1124,"SEAK_3","Dome","Kpedze",null);
+        driverAssignment.assignDriverToOrder(order_3);
+
+        Order order_4=new Order(1125,"SEAK_3","Dome","Asamankesi",null);
+        driverAssignment.assignDriverToOrder(order_4);
+    }
+        //System.out.println("Available Drivers Loaded");
+    }
+
+
+
+
