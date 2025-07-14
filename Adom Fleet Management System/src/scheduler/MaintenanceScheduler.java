@@ -27,10 +27,12 @@ public class MaintenanceScheduler {
     }
 
     public void markAsServiced(Vehicle vehicle) {
-        vehicle.setDaysSinceLastService(0);
+        //vehicle.setDaysSinceLastService(0);
+        vehicle.setLastServiceDate(0);
     }
 
     private boolean shouldFlagForService(Vehicle vehicle) {
-        return vehicle.getMileage() >= 10000 || vehicle.getDaysSinceLastService() >= 90;
+        //return vehicle.getMileage() >= 10000 || vehicle.getDaysSinceLastService() >= 90;
+        return vehicle.getMileage() >= 10000 || vehicle.getLastServiceDate() >= 90;
     }
 }
