@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.time.Duration;
 
 public class Order {
-    private int orderId;
-    private String clientName;
+    private static int orderId;
+    private static String clientName;
     private String assignedDriver;
     public enum DeliveryStatus{
         IN_TRANSIT,
@@ -187,4 +187,6 @@ public class Order {
                "\nETA: " + (eta != null ? eta : "N/A") +
                "\nWait Time: " + getWaitTime().toMinutes() + " minutes";
     }
+
+
 }

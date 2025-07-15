@@ -73,4 +73,34 @@ public class LinkedList<T> {
         }
         return current.entity;
     }
+
+    // Method to convert the linked list to a string array
+    public String[] toStringArray() {
+        String[] array = new String[size];
+        Node<T> current = head;
+        for (int i = 0; i < size; i++) {
+            array[i] = current.entity.toString();
+            current = current.nextNode;
+        }
+        return array;
+    }
+
+    //This method clears the linked list
+    public void clear() {
+        head = null;
+        size = 0;
+    }
+
+    // This method checks if the list contains all elements of another collection
+    public boolean containsAll(LinkedList<T> other) {
+        if (other == null || other.size() == 0) return true;
+        Node<T> currentOther = other.head;
+        while (currentOther != null) {
+            if (!this.search(currentOther.entity)) {
+                return false;
+            }
+            currentOther = currentOther.nextNode;
+        }
+        return true;
+    }
 }

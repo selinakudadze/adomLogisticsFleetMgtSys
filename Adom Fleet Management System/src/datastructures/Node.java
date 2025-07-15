@@ -3,7 +3,7 @@ package datastructures;
 public class Node<T>{
 
     /** This class has attributes,
-     * entity( which takes in objects of the various classes-Vehicle,Order and Drivers)
+     * entity( which takes in objects of the various classes-Vehicles.txt,Order and Drivers)
      * and nextNode
      */
     public T entity;
