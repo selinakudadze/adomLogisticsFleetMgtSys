@@ -46,11 +46,17 @@ public class DriverAssignment {
         }
 
     public void assignDriverToOrder(Order order){
+
+        if (driverQueue.isEmpty()) {
+        System.out.println("No drivers available to assign to order " + order.getOrderId());
+        return;
+                    }
         //Assignment based on Experience
         //Try proximity later
         Driver originalHead=driverQueue.front();
         Queue<Driver> placeHolderDriverQueue=new Queue<>();
         Driver currentDriver=driverQueue.dequeue().entity;
+        boolean assignedByExperience = false;
 
         System.out.println("Order "+order.getOrderId()+" is going to "+order.getDestination());
         while(currentDriver != null){
@@ -64,6 +70,7 @@ public class DriverAssignment {
                 currentDriver.updateAvailability(Driver.AvailabilityStatus.OFF_DUTY);//changes the status of the driver when assigned to an order
                 currentDriver.updateOrderStatus(Driver.OrderStatus.IN_TRANSIT);//update the order status of the Driver
 
+                assignedByExperience = true;
 
                 if(originalHead.getDriverID().equals(currentDriver.getDriverID())){
                     return;
@@ -85,16 +92,99 @@ public class DriverAssignment {
                 Driver nextDriver=driverQueue.dequeue().entity;
                 currentDriver=nextDriver;
                 System.out.println("The next driver to check is "+currentDriver.getDriverID());
+
+                
             }
             //what if none of the drivers have been to the order destination?
             //Use proximity?
+            
+
         }
+             // If no driver matched by experience, try proximity
+        if (!assignedByExperience) {
+            assignByProximity(order, placeHolderDriverQueue);
+        }
+
         driverQueue=placeHolderDriverQueue;
 
     }
 
+     // METHOD TO ASSIGN DRIVER BASED ON LOCATION PROXIMITY 
+        public void assignByProximity(Order order, Queue<Driver> availableDrivers) {
+          if (availableDrivers.isEmpty()) {
+            // exit if there are no drivers to check
+        System.out.println("No available drivers for order " + order.getOrderId());
+        return; 
+          }
+        System.out.println("Attempting proximity-based assignment...");
+
+            // Gets coordinate for origin city
+        Coordinate originCoord = LocationService.getCoordinate(order.getOrigin());
+
+        // exist if there are no coordinates found
+        if (originCoord == null) {
+            System.out.println("Origin location not found in location list.");
+            return;
+        }
+            
+        Driver closestDriver = null;   //store the closest driver found
+        double minDistance = Double.MAX_VALUE; 
+        Queue<Driver> tempQueue = new Queue<>(); // temporary queue to preserbe drivers
+
+        while (!availableDrivers.isEmpty()) {
+            Driver driver = availableDrivers.dequeue().entity;  // get each driver one by one
+
+
+            Coordinate driverCoord = LocationService.getCoordinate(driver.getDriverLocation());// get driver's location coordinate
+
+            if (driverCoord != null) {
+                double distance = haversine(driverCoord.latitude, driverCoord.longtitude, originCoord.latitude, originCoord.longtitude);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestDriver = driver;
+                }
+            }
+            tempQueue.enqueue(driver); // Keep the queue intact by requeuing all drivers
+        }
+
+        driverQueue = tempQueue; 
+
+        if (closestDriver != null) {
+            closestDriver.setAssignOrderID(order.getOrderId());
+            closestDriver.updateAvailability(Driver.AvailabilityStatus.OFF_DUTY);
+            closestDriver.updateOrderStatus(Driver.OrderStatus.IN_TRANSIT);
+            order.setAssignedDriver(closestDriver.getDriverID());
+            order.updateDeliveryStatus(Order.DeliveryStatus.IN_TRANSIT);
+            assignedDriversQueue.enqueue(closestDriver);
+
+            System.out.println("Order " + order.getOrderId() + " assigned to " + closestDriver.getDriverID()
+                    + " based on proximity (" + String.format("%.2f", minDistance) + " km).");
+        } else {
+            System.out.println("No suitable driver found based on proximity.");
+        }
+    }
+
+    // NEW METHOD: Haversine formula for calculating distance between two locations
+    public static double haversine(double lat1, double lon1, double lat2, double lon2) {
+        final double R = 6371; // Radius of Earth in kilometers
+
+        double dLat = Math.toRadians(lat2 - lat1); //change in latitude
+    
+        double dLon = Math.toRadians(lon2 - lon1); // change in longtitude
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+
+        double a = Math.pow(Math.sin(dLat / 2), 2)
+                + Math.cos(lat1) * Math.cos(lat2)
+                * Math.pow(Math.sin(dLon / 2), 2); // Haversine formula
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // return distance 
+    }
+
     public static void main(String[] args){
         DriverAssignment driverAssignment=new DriverAssignment();
+         LocationService.loadLocations("Adom Fleet Management System/src/dummyTextFiles/locations.txt");
         driverAssignment.LoadAvailableDrivers();
 
         Order order=new Order(1121,"SEAK","Dome","Kpedze",null,0,0,0,0);
@@ -106,12 +196,12 @@ public class DriverAssignment {
         Order order_2=new Order(1123,"SEAK_2","Ho","New Junction",null,0,0,0,0);
         driverAssignment.assignDriverToOrder(order_2);
 
-        Order order_3=new Order(1124,"SEAK_3","Dome","Kpedze",null,0,0,0,0);
+        Order order_3=new Order(1124,"SEAK_3","Wa","Kpedze",null,0,0,0,0);
         driverAssignment.assignDriverToOrder(order_3);
 
-        Order order_4=new Order(1125,"SEAK_3","Dome","Asamankesi",null,0,0,0,0);
+        Order order_4=new Order(1125,"SEAK_3","Lapaz","Asamankesi",null,0,0,0,0);
         driverAssignment.assignDriverToOrder(order_4);
-    }
+        }
         //System.out.println("Available Drivers Loaded");
     }
 
