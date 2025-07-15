@@ -4,6 +4,9 @@ import datastructures.LinkedList;
 
 public class Driver{
 
+
+
+
     public enum OrderStatus{
         IN_TRANSIT,
         DELIVERED,
@@ -56,7 +59,7 @@ public class Driver{
         return driverName;
     }
 
-    public String getLicenseTpye(){
+    public String getLicenseType(){
         return licenseTpye;
     }
 
@@ -83,7 +86,7 @@ public class Driver{
         return orderStatus.toString();
     }
 
-    public String getDriverLocation(){
+    public String getCurrentDriverLocation(){
         return currentDriverLocation;
     }
 

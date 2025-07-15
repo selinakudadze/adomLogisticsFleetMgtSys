@@ -100,7 +100,7 @@ public class PriorityQueue {
     }
 }
 
-// Placeholder Vehicle class (to be implemented fully)
+// Placeholder Vehicles.txt class (to be implemented fully)
 class Vehicle {
     private String registrationNumber;
     private int mileage;

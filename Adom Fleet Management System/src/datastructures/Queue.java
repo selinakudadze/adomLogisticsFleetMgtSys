@@ -46,7 +46,10 @@ public class Queue<T> {
     }
 
     public T front() {
-        //Returns the first element in the Queue
+        // Returns the first element in the Queue, or null if empty
+        if (this.head == null) {
+            return this.head.entity;
+        }
         return this.head.entity;
     }
 
@@ -69,23 +72,23 @@ public class Queue<T> {
         return head.nextNode.entity;
     }
 
-    public static void main(String[] args){
-        Queue<Integer> queue_test=new Queue<Integer>();
-        queue_test.enqueue(0);
-        queue_test.enqueue(2);
-        queue_test.enqueue(4);
-        queue_test.enqueue(6);
-        queue_test.enqueue(8);
-        queue_test.enqueue(10);
-
-        for(int i=0;i<4;i++){
-            System.out.println(queue_test.dequeue().entity+" has been removed");
-        }
-
-        System.out.println("This is the first element "+queue_test.front());
-        System.out.println("This is the last element "+queue_test.back());
-        queue_test.enqueue(-2);
-        System.out.println("Size of the queue is "+queue_test.size());
-        System.out.println(queue_test.isEmpty());
-    }
+//    public static void main(String[] args){
+//        Queue<Integer> queue_test=new Queue<Integer>();
+//        queue_test.enqueue(0);
+//        queue_test.enqueue(2);
+//        queue_test.enqueue(4);
+//        queue_test.enqueue(6);
+//        queue_test.enqueue(8);
+//        queue_test.enqueue(10);
+//
+//        for(int i=0;i<4;i++){
+//            System.out.println(queue_test.dequeue().entity+" has been removed");
+//        }
+//
+//        System.out.println("This is the first element "+queue_test.front());
+//        System.out.println("This is the last element "+queue_test.back());
+//        queue_test.enqueue(-2);
+//        System.out.println("Size of the queue is "+queue_test.size());
+//        System.out.println(queue_test.isEmpty());
+//    }
 }
