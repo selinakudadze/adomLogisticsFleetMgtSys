@@ -182,6 +182,7 @@ public class DriverAssignment {
         return R * c; // return distance 
     }
 
+    // Everyone can run this to check proximty
     public static void main(String[] args){
         DriverAssignment driverAssignment=new DriverAssignment();
          LocationService.loadLocations("Adom Fleet Management System/src/dummyTextFiles/locations.txt");
