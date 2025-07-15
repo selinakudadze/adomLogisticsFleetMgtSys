@@ -111,6 +111,7 @@ public class DriverAssignment {
     }
 
 
+    // Everyone can run this to check proximty
     public static void main(String[] args){
         DriverAssignment driverAssignment = new DriverAssignment();
         driverAssignment.LoadAvailableDrivers();
