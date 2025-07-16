@@ -86,7 +86,7 @@ public class Driver{
         return orderStatus.toString();
     }
 
-    public String getCurrentDriverLocation(){
+    public String getDriverLocation(){
         return currentDriverLocation;
     }
 

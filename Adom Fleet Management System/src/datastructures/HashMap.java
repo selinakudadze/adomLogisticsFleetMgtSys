@@ -71,4 +71,14 @@ public class HashMap<K, V> {
     public boolean containsKey(K key) {
         return get(key) != null;
     }
+
+    public void printAll() {
+        for (int i = 0; i < capacity; i++) {
+            HashNode<K, V> current = buckets[i];
+            while (current != null) {
+                System.out.println(current.value);  // toString() in Order will be used
+                current = current.next;
+            }
+        }
+    }
 }
