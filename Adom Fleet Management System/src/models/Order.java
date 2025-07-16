@@ -76,6 +76,8 @@ public class Order {
         this.currentLongitude = originLongitude;
     }
 
+
+
     // Getters and setters    
     public int getOrderId() {
         return orderId;
