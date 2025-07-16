@@ -28,7 +28,7 @@ public class Vehicle implements Comparable<Vehicle>{
                    String currentDriver, int daysSinceLastService) {
         this.vehicleId = vehicleId;
         this.registrationNumber = registrationNumber;
-        this.vehicleType = registrationNumber;
+        this.vehicleType = vehicleType;
         this.mileage = mileage;
         this.fuelUse = fuelUse;
         this.assignedDriverId = null; // No driver assigned by default
