@@ -10,7 +10,8 @@ public class Order {
     public enum DeliveryStatus{
         IN_TRANSIT,
         DELIVERED,
-        REROUTED
+        REROUTED,
+        STUCK
     }
     private String origin;
     private String destination;
