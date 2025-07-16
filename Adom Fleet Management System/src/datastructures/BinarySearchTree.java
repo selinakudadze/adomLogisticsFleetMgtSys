@@ -67,3 +67,18 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 }
+
+// Constructor (BinarySearchTree) --> Time Complexity: O(1)
+// insert(T item) --> Time Complexity: O(h), where h is the height of the tree
+// getSize() --> Time Complexity: O(1)
+// getAllElements(T[] array) --> Time Complexity: O(n)
+// fillArray(TreeNode<t> node, T[] array, Counter counter)</t> (Helper Method)
+// --> Time Complexity: O(n) for the entire tree
+
+// Space Complexity --> Overall Structure: O(n)
+
+// Efficient Operations: getSize() is O(1)
+// getAllElements and fillArray use O(n)
+// time but benefit from sorted output due to in-order traversal
+// The implementation is space-efficient at O(n) for storage, with
+// temporary space scaling with tree height (O(log n) balanced, O(n) unbalanced).
