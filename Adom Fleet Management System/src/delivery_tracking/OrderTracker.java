@@ -1,6 +1,12 @@
 package delivery_tracking;
 
 import datastructures.HashMap;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import models.Order;
 
 public class OrderTracker {
@@ -55,6 +61,50 @@ public class OrderTracker {
     public void printAllOrders() {
         orderMap.printAll();
     }
+
+    public void loadOrdersFromFile(String fileName) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        String line;
+        reader.readLine(); // Skip header
+
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+        while ((line = reader.readLine()) != null) {
+            if (line.trim().isEmpty()) continue; // ✅ Skip empty lines
+
+            String[] fields = line.split(",");
+
+            if (fields.length < 9) {
+                System.err.println("Skipping invalid line: " + line);
+                continue;
+            }
+
+            try {
+                int orderId = Integer.parseInt(fields[0].trim());
+                String clientName = fields[1].trim();
+                String origin = fields[2].trim();
+                String destination = fields[3].trim();
+                LocalDateTime scheduledDateTime = LocalDateTime.parse(fields[4].trim(), formatter);
+                double originLat = Double.parseDouble(fields[5].trim());
+                double originLon = Double.parseDouble(fields[6].trim());
+                double destLat = Double.parseDouble(fields[7].trim());
+                double destLon = Double.parseDouble(fields[8].trim());
+
+                Order order = new Order(orderId, clientName, origin, destination, scheduledDateTime,
+                        originLat, originLon, destLat, destLon);
+
+                addOrder(order);
+            } catch (NumberFormatException | DateTimeParseException e) {
+                System.err.println("Skipping malformed line: " + line);
+            }
+        }
+
+        System.out.println("Orders loaded successfully.");
+    } catch (IOException e) {
+        System.err.println("Error reading file: " + e.getMessage());
+    }
+}
+
 }
 
 // This class manages the tracking of orders, allowing for adding, updating, and removing orders.
@@ -67,10 +117,10 @@ public class OrderTracker {
 /** CODE IMPLEMENTATION IN MAIN.JAVA
  * OrderTracker tracker = new OrderTracker();
 
- Order o1 = new Order(101, "Alice", "Tema", "Kumasi", LocalDateTime.now(), 5.6, -0.1, 6.7, -1.3);
- tracker.addOrder(o1);
- tracker.assignDriver(101, "Kwame");
- tracker.updateStatus(101, "In Transit");
+    Order o1 = new Order(101, "Alice", "Tema", "Kumasi", LocalDateTime.now(), 5.6, -0.1, 6.7, -1.3);
+    tracker.addOrder(o1);
+    tracker.assignDriver(101, "Kwame");
+    tracker.updateStatus(101, "In Transit");
 
- tracker.printAllOrders();
+    tracker.printAllOrders();
  */
