@@ -138,14 +138,14 @@ public class Vehicle implements Comparable<Vehicle>{
         return Integer.compare(other.daysSinceLastService, this.daysSinceLastService);
     }
 
-//    @Override
-//    public String toString() {
-//        String vehicleInfo = registrationNumber + "| Mileage: " + " | LastService: " + daysSinceLastService + " | FuelUse: " + fuelUse + " | Location: (" + currentLong + ", " + currentLat + ")";
-//        if(this.maintenanceInfo != null){
-//            vehicleInfo += "| Urgent part needing repairs: " + this.maintenanceInfo.getUrgentPartNeedingRepairs();
-//        }
-//        return vehicleInfo;
-//    }
+    @Override
+    public String toString() {
+        String vehicleInfo = registrationNumber + "| Mileage: " + " | LastService: " + daysSinceLastService + " | FuelUse: " + fuelUse + " | Location: (" + currentLong + ", " + currentLat + ")";
+        if(this.maintenanceInfo != null){
+            vehicleInfo += "| Urgent part needing repairs: " + this.maintenanceInfo.getUrgentPartNeedingRepairs();
+        }
+        return vehicleInfo;
+    }
 
     // Getters
     public int getVehicleId() { return vehicleId;}
@@ -188,16 +188,16 @@ public class Vehicle implements Comparable<Vehicle>{
         }
         this.maintenanceInfo.addPartNeedingRepairs(partNeedingRepairs, priority);
     }
-
-    @Override
-    public String toString() {
-        return "Vehicle ID: " + vehicleId +
-                "\nRegistration Number " + registrationNumber +
-                "\nVehicle Type: " + vehicleType +
-                "\nMileage " + mileage +
-                "\nFuel Usage " + fuelUse +
-                "\nCurrentDriver: " + currentDriver +
-                "\nDays Since last service " + daysSinceLastService;
-
-    }
+//
+//    @Override
+//    public String toString() {
+//        return "Vehicle ID: " + vehicleId +
+//                "\nRegistration Number " + registrationNumber +
+//                "\nVehicle Type: " + vehicleType +
+//                "\nMileage " + mileage +
+//                "\nFuel Usage " + fuelUse +
+//                "\nCurrentDriver: " + currentDriver +
+//                "\nDays Since last service " + daysSinceLastService;
+//
+//    }
 }

@@ -11,6 +11,9 @@
 
  import java.io.File;
  import java.io.FileNotFoundException;
+ import java.time.LocalDate;
+ import java.time.LocalDateTime;
+ import java.util.Date;
  import java.util.Scanner;
 
  public class DriverAssignment {
@@ -19,7 +22,7 @@
 
      public void LoadAvailableDrivers(){
          try{
-             File driverFile=new File("src/dummyTextFiles/Drivers.txt");
+             File driverFile=new File("Adom Fleet Management System/src/dummyTextFiles/Drivers.txt");
              Scanner driverScanner =new Scanner(driverFile);
 
 
@@ -74,6 +77,9 @@
                  assignedDriversQueue.enqueue(currentDriver);
                  order.setAssignedDriver(currentDriver.getDriverID());
                  order.updateDeliveryStatus(String.valueOf(Order.DeliveryStatus.IN_TRANSIT));
+
+                 LocalDateTime pickUpDate = LocalDateTime.now();
+                 order.setPickupTime(pickUpDate);
                  currentDriver.updateAvailability(Driver.AvailabilityStatus.OFF_DUTY);//changes the status of the driver when assigned to an order
                  currentDriver.updateOrderStatus(Driver.OrderStatus.IN_TRANSIT);//update the order status of the Driver
 
