@@ -14,6 +14,7 @@ public class Vehicle {
     private double currentLong;
     private double currentLat;
     private String currentDriver;
+    private int daysSinceLastService;
 
     public Vehicle(int vehicleId, String registrationNumber, String vehicleType, int mileage, float fuelUse, double currentLong, double currentLat, String currentDriver) {
         this.vehicleId = vehicleId;
@@ -26,6 +27,7 @@ public class Vehicle {
         this.currentLong = currentLong;
         this.currentLat = currentLat;
         this.currentDriver = currentDriver;
+        this.daysSinceLastService = 0;
     }
 
     public boolean canBeAssignedToDriver() {
@@ -95,4 +97,6 @@ public class Vehicle {
     public void setCurrentLat(double currentLat) {this.currentLat = currentLat;}
     public void setCurrentLong(double currentLong) {this.currentLong = currentLong;}
     public void setCurrentDriver(String currentDriver) { this.currentDriver = currentDriver;}
+    public int getDaysSinceLastService(){ return this.daysSinceLastService;}
+    public void setDaysSinceLastService(int n){this.daysSinceLastService = n;}
 }

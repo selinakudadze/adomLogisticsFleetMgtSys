@@ -18,19 +18,25 @@ public class MaintenanceScheduler {
         }
     }
 
-    public Vehicle getNextVehicleForService() {
+    public Vehicle[] getNextVehiclesForService(int n) {
         if (heap.isEmpty()) {
             System.out.println("No vehicles due for service.");
             return null;
         }
-        return heap.extractMin();
+        Vehicle[] nextVehiclesForService = new Vehicle[n];
+        for(int i = 0; i < n; i++){
+            heap.extractMin();
+        }
+        return nextVehiclesForService;
     }
 
-    public void markAsServiced(Vehicle vehicle) {
-        vehicle.setDaysSinceLastService(0);
+    public void markAsServiced(Vehicle[] vehicles) {
+        for(Vehicle vehicle: vehicles){
+            vehicle.setDaysSinceLastService(0);
+        }
     }
 
     private boolean shouldFlagForService(Vehicle vehicle) {
-        return vehicle.getMileage() >= 10000 || vehicle.getDaysSinceLastService() >= 90;
+        return vehicle.mileage() >= 10000 || vehicle.getDaysSinceLastService() >= 90;
     }
 }
