@@ -69,6 +69,9 @@ public class MaintenanceScheduler {
     }
 
     private boolean shouldFlagForService(Vehicle vehicle) {
+        if(vehicle.getMaintenanceInfo().getUrgentPartNeedingRepairs() != "null"){
+            return true;
+        }
         return vehicle.getMileage() >= 10000 || vehicle.getDaysSinceLastService() >= 90;
     }
 }
