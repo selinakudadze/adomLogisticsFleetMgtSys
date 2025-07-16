@@ -36,13 +36,13 @@ public class DeliveryReroute {
         }
 
         order.setAssignedDriver(bestCandidate.getCurrentDriver());
-        order.setDeliveryStatus("Reassigned");
+        order.setDeliveryStatus("REORDERED");
         availVehicles[indexBest] = null;
         return availVehicles;
     }
 
     public boolean needsRerouting(Order order){
-        boolean isStuck = "Stuck".equals(order.getDeliveryStatus());
+        boolean isStuck = "STUCK".equals(order.getDeliveryStatus());
         boolean waitingTooLong = order.getWaitTime().toMinutes() > 60;
         return isStuck || waitingTooLong;
     }
