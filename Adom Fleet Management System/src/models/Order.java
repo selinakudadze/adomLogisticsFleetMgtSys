@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 import java.time.Duration;
 
 public class Order {
-    private static int orderId;
-    private static String clientName;
+    private int orderId;
+    private String clientName;
     private String assignedDriver;
     public enum DeliveryStatus{
         IN_TRANSIT,
         DELIVERED,
-        REROUTED
+        REROUTED,
+        STUCK
     }
     private String origin;
     private String destination;

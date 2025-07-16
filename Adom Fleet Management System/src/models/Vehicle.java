@@ -2,6 +2,8 @@ package models;
 
 import datastructures.HashMap;
 
+import java.util.Date;
+
 public class Vehicle implements Comparable<Vehicle>{
     private int vehicleId;
     private String registrationNumber;
@@ -13,15 +15,16 @@ public class Vehicle implements Comparable<Vehicle>{
     private double currentLong; // longitude
     private double currentLat; // latitude
     private String currentDriver;
-    private int lastServiceDate; // days since last service
+    private int daysSinceLastService; // days since last service
+    private Maintenance maintenanceInfo;
 
     public Vehicle(int vehicleId, String registrationNumber,
                    String vehicleType, int mileage, float fuelUse,
                    double currentLong, double currentLat,
-                   String currentDriver, int lastServiceDate) {
+                   String currentDriver, int daysSinceLastService) {
         this.vehicleId = vehicleId;
         this.registrationNumber = registrationNumber;
-        this.vehicleType = registrationNumber;
+        this.vehicleType = vehicleType;
         this.mileage = mileage;
         this.fuelUse = fuelUse;
         this.assignedDriverId = null; // No driver assigned by default
@@ -29,7 +32,7 @@ public class Vehicle implements Comparable<Vehicle>{
         this.currentLong = currentLong;
         this.currentLat = currentLat;
         this.currentDriver = currentDriver;
-        this.lastServiceDate = lastServiceDate;
+        this.daysSinceLastService = daysSinceLastService;
     }
 
     public boolean canBeAssignedToDriver() {
@@ -88,12 +91,16 @@ public class Vehicle implements Comparable<Vehicle>{
             return Integer.compare(other.mileage, this.mileage);
             // Higher mileage = higher priority
         }
-        return Integer.compare(other.lastServiceDate, this.lastServiceDate);
+        return Integer.compare(other.daysSinceLastService, this.daysSinceLastService);
     }
 
     @Override
     public String toString() {
-        return registrationNumber + "| Mileage: " + " | LastService: " + lastServiceDate + " | FuelUse: " + fuelUse + " | Location: (" + currentLong + ", " + currentLat + ")";
+        String vehicleInfo = registrationNumber + "| Mileage: " + " | LastService: " + daysSinceLastService + " | FuelUse: " + fuelUse + " | Location: (" + currentLong + ", " + currentLat + ")";
+        if(this.maintenanceInfo != null){
+            vehicleInfo += "| Urgent part needing repairs: " + this.maintenanceInfo.getUrgentPartNeedingRepairs();
+        }
+        return vehicleInfo;
     }
 
     // Getters
@@ -107,7 +114,7 @@ public class Vehicle implements Comparable<Vehicle>{
     public double getCurrentLat() { return currentLat; }
     public double getCurrentLong() { return currentLong; }
     public String getCurrentDriver()  { return currentDriver; }
-    public int getLastServiceDate() { return lastServiceDate;}
+    public int getDaysSinceLastService() { return daysSinceLastService;}
 
 
     // Setters
@@ -117,5 +124,24 @@ public class Vehicle implements Comparable<Vehicle>{
     public void setCurrentLat(double currentLat) {this.currentLat = currentLat;}
     public void setCurrentLong(double currentLong) {this.currentLong = currentLong;}
     public void setCurrentDriver(String currentDriver) { this.currentDriver = currentDriver;}
-    public void setLastServiceDate(int lastServiceDate) { this.lastServiceDate = lastServiceDate;}
+    public void setDaysSinceLastService(int daysSinceLastService) { this.daysSinceLastService = daysSinceLastService;}
+    public Maintenance getMaintenanceInfo(){
+        return this.maintenanceInfo;
+    }
+    public void updateMaintenanceHistory(String partRepaired, int daysSinceLastRepairs, Date dateOfRepairs, float costOfRepairs, String mechanicShop){
+        if(this.getMaintenanceInfo() == null){
+            this.maintenanceInfo = new Maintenance(this.vehicleId, daysSinceLastRepairs, dateOfRepairs, costOfRepairs, mechanicShop);
+        }
+        this.maintenanceInfo.setDaysSinceLastRepairs(daysSinceLastRepairs);
+        this.maintenanceInfo.setDateOfRepairs(dateOfRepairs);
+        this.maintenanceInfo.setMechanicShop(mechanicShop);
+        this.maintenanceInfo.addPartRepaired(partRepaired, "Repaired");
+    }
+
+    public void addRepair(String partNeedingRepairs, int priority){
+        if(this.getMaintenanceInfo() == null){
+            this.maintenanceInfo = new Maintenance(this.vehicleId, 0, null, 0, "");
+        }
+        this.maintenanceInfo.addPartNeedingRepairs(partNeedingRepairs, priority);
+    }
 }

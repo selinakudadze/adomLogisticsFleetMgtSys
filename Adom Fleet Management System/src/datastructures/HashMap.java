@@ -77,6 +77,7 @@ public class HashMap<K, V> {
             HashNode<K, V> current = buckets[i];
             while (current != null) {
                 System.out.println(current.value);  // toString() in Order will be used
+                System.out.println();
                 current = current.next;
             }
         }
