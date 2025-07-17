@@ -6,12 +6,12 @@ public class Main {
         System.out.println("Hello and welcome!");
 
         OrderTracker tracker = new OrderTracker();
-        tracker.loadOrdersFromFile("AdomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+        tracker.loadOrdersFromFile("src/dummyTextFiles/Deliveries.txt");
 
-        // ✅ Print all loaded orders
+        // Print all loaded orders
         // tracker.printAllOrders();
 
-        // ✅ Print a specific order by ID
+        // Print a specific order by ID
         System.out.println("Printing order with ID 1002:");
         Order specificOrder = tracker.getOrder(1002);
         if (specificOrder != null) {
@@ -20,7 +20,7 @@ public class Main {
             System.out.println("Order not found.");
         }
 
-        // ✅ Add a new order manually
+        // Add a new order manually
     //     Order newOrder = new Order(
     //             2025, "John Doe", "Accra", "Cape Coast",
     //             LocalDateTime.of(2025, 7, 21, 10, 30),
