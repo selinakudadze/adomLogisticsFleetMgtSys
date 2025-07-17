@@ -76,7 +76,7 @@
                  System.out.println("The order "+ order.getOrderId()+" has been assigned to "+currentDriver.getDriverID());
                  assignedDriversQueue.enqueue(currentDriver);
                  order.setAssignedDriver(currentDriver.getDriverID());
-                 order.updateDeliveryStatus(String.valueOf(Order.DeliveryStatus.IN_TRANSIT));
+                 order.setDeliveryStatus(String.valueOf(Order.DeliveryStatus.IN_TRANSIT));
 
                  LocalDateTime pickUpDate = LocalDateTime.now();
                  order.setPickupTime(pickUpDate);
@@ -90,14 +90,14 @@
                  }else{
                      while(!driverQueue.isEmpty()){
                          Driver dequeuedDriver=driverQueue.dequeue().entity;
-                         System.out.println("The "+ dequeuedDriver.getDriverID()+" driver was added to the other queue");
+                         //System.out.println("The "+ dequeuedDriver.getDriverID()+" driver was added to the other queue");
                          placeHolderDriverQueue.enqueue(dequeuedDriver);
                      }break;
                  }
 
              }else{
                  placeHolderDriverQueue.enqueue(currentDriver);
-                 System.out.println("The "+ currentDriver.getDriverID()+" driver was added to the other queue");
+                 //System.out.println("The "+ currentDriver.getDriverID()+" driver was added to the other queue");
                  if(driverQueue.isEmpty()){
                      System.out.println("There are no available drivers to be assigned order "+order.getOrderId()+" based on EXPERIENCE. Try proximity");
                      break;
