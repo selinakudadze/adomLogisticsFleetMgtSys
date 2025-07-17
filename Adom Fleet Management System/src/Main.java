@@ -1,3 +1,4 @@
+import delivery_tracking.OrderTracker;
 import models.Driver;
 import models.Order;
 import models.Vehicle;
@@ -8,6 +9,7 @@ import scheduler.MaintenanceScheduler;
 import delivery_rerouting.DeliveryReroute;
 import driverassignment.DriverAssignment;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import static sort_and_search.BinarySearch.searchByRegistration;
@@ -15,10 +17,10 @@ import static sort_and_search.BinarySearch.searchByRegistration;
 public class Main {
 
     public static void main(String[] args) {
-        //OrderTracker orderTracker = new OrderTracker();
-//        while(true) {
+        OrderTracker orderTracker = new OrderTracker();
+        while(true) {
         OrderReader orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
-        Order[] orders = orderReader.readOrdersFromFile();
+        Order[] orders= orderReader.readOrdersFromFile();
         VehicleReader vehicleReader = new VehicleReader("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
         Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
         MaintenanceScheduler maintenanceScheduler = new MaintenanceScheduler();
@@ -161,6 +163,7 @@ public class Main {
                         System.out.println("Show outliers");
                         float[] vehicleFuelUsage = new float[vehicles.length];
                         for (int i = 0; i < vehicles.length; i++) {
+                            System.out.println(vehicles[i].getFuelUse());
                             vehicleFuelUsage[i] = vehicles[i].calculateAverageFuelConsumption();
                         }
 
@@ -202,6 +205,9 @@ public class Main {
                     break;
                 } else if (continueChoice.equals("n")) {
                     System.out.println("Exiting...");
+                    System.out.println("\nSEE YOU SOON...");
+                    System.out.println("----------------------------------------");
+                    System.out.println("ADOM LOGISTICS FLEET MANAGEMENT SYSTEM");
                     System.exit(0);
                 } else {
                     System.out.println("Invalid input. Please enter 'y' for yes or 'n' for no.");
@@ -216,6 +222,10 @@ public class Main {
         scanner.close();
 
 
+    }
+//        OrderTracker tracker = new OrderTracker();
+//        Order orders = tracker.loadOrdersFromFile("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+//        System.out.println(orders_1[5].toString());
     }
 }
 

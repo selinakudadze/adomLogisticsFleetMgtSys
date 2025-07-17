@@ -62,7 +62,7 @@ public class OrderTracker {
         orderMap.printAll();
     }
 
-    public void loadOrdersFromFile(String fileName) {
+    public Order loadOrdersFromFile(String fileName) {
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
         String line;
         reader.readLine(); // Skip header
@@ -103,7 +103,8 @@ public class OrderTracker {
     } catch (IOException e) {
         System.err.println("Error reading file: " + e.getMessage());
     }
-}
+        return null;
+    }
 
 }
 
