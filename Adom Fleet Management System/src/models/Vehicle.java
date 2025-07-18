@@ -172,19 +172,22 @@ public class Vehicle implements Comparable<Vehicle>{
     public Maintenance getMaintenanceInfo(){
         return this.maintenanceInfo;
     }
-    public void updateMaintenanceHistory(String partRepaired, int daysSinceLastRepairs, Date dateOfRepairs, float costOfRepairs, String mechanicShop){
+    public void updateMaintenanceInfo(String partRepaired, int daysSinceLastRepairs, Date dateOfLastRepairs, float costOfRepairs, String lastMechanicShop){
         if(this.getMaintenanceInfo() == null){
-            this.maintenanceInfo = new Maintenance(this.vehicleId, daysSinceLastRepairs, dateOfRepairs, costOfRepairs, mechanicShop);
+            this.maintenanceInfo = new Maintenance(this.vehicleId, daysSinceLastRepairs, dateOfLastRepairs, lastMechanicShop);
         }
         this.maintenanceInfo.setDaysSinceLastRepairs(daysSinceLastRepairs);
-        this.maintenanceInfo.setDateOfRepairs(dateOfRepairs);
-        this.maintenanceInfo.setMechanicShop(mechanicShop);
-        this.maintenanceInfo.addPartRepaired(partRepaired, "Repaired");
+        this.maintenanceInfo.setDateOfLastRepairs(dateOfLastRepairs);
+        this.maintenanceInfo.setLastMechanicShop(lastMechanicShop);
+        this.maintenanceInfo.addPartRepaired(partRepaired, costOfRepairs);
+    }
+    public void setMaintenanceInfo(Maintenance maintenance){
+        this.maintenanceInfo = maintenance;
     }
 
     public void addRepair(String partNeedingRepairs, int priority){
         if(this.getMaintenanceInfo() == null){
-            this.maintenanceInfo = new Maintenance(this.vehicleId, 0, null, 0, "");
+            this.maintenanceInfo = new Maintenance(this.vehicleId, 0, null, "");
         }
         this.maintenanceInfo.addPartNeedingRepairs(partNeedingRepairs, priority);
     }

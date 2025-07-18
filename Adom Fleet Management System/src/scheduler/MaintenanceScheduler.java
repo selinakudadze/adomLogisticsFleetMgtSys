@@ -54,15 +54,15 @@ public class MaintenanceScheduler {
             Maintenance mInfo = vehicle.getMaintenanceInfo();
             Date dateOfRepairs = new Date();
             if(mInfo == null){
-                vehicle.updateMaintenanceHistory("General", 0, dateOfRepairs, cost, mechanicShop);
+                vehicle.updateMaintenanceInfo("General", 0, dateOfRepairs, cost, mechanicShop);
             }
             else{
                 String partRepaired = mInfo.getUrgentPartNeedingRepairs();
                 if(!Objects.equals(partRepaired, "null")){
-                    vehicle.updateMaintenanceHistory(partRepaired, 0, dateOfRepairs, cost, mechanicShop);
+                    vehicle.updateMaintenanceInfo(partRepaired, 0, dateOfRepairs, cost, mechanicShop);
                 }
                 else{
-                    vehicle.updateMaintenanceHistory("General", 0, dateOfRepairs, cost, mechanicShop);
+                    vehicle.updateMaintenanceInfo("General", 0, dateOfRepairs, cost, mechanicShop);
                 }
             }
         }

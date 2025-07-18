@@ -1,63 +1,86 @@
 package models;
 
 import datastructures.HashMap;
+import datastructures.HashNode;
+import datastructures.LinkedList;
+import datastructures.Node;
+
 import java.util.Date;
 
 public class Maintenance {
     private int vehicleId;
-    private HashMap<String, String> vehiclePartsRepaired; // Key: Part name, Value: Repair/Replacement status
-    private Date dateOfRepairs;
-    private float costOfRepairs;
-    private String mechanicShop;
+    private HashMap<String, LinkedList<Float>> vehiclePartsRepaired; // Key: Part name, Value: Repair/Replacement status
+    private Date dateOfLastRepairs;
+    private String lastMechanicShop;
     private int daysSinceLastRepairs;
     private String[] partsNeedingRepairs = new String[3]; // vehicles should have at most three parts needing repairs
 
-    public Maintenance(int vehicleId, int daysSinceLastRepairs, Date dateOfRepairs, float costOfRepairs, String mechanicShop) {
+    public Maintenance(int vehicleId, int daysSinceLastRepairs, Date dateOfLastRepairs, String lastMechanicShop) {
         this.vehicleId = vehicleId;
         this.vehiclePartsRepaired = new HashMap<>();
-        this.dateOfRepairs = dateOfRepairs;
-        this.costOfRepairs = costOfRepairs;
-        this.mechanicShop = mechanicShop;
+        this.dateOfLastRepairs = dateOfLastRepairs;
+        this.lastMechanicShop = lastMechanicShop;
         this.daysSinceLastRepairs = daysSinceLastRepairs;
     }
 
-    public void addPartRepaired(String partName, String status) {
-        vehiclePartsRepaired.put(partName, status);
+    public Maintenance(int vehicleId, HashMap<String, LinkedList<Float>> vehiclePartsRepaired, int daysSinceLastRepairs, Date dateOfLastRepairs, String lastMechanicShop) {
+        this.vehicleId = vehicleId;
+        this.vehiclePartsRepaired = vehiclePartsRepaired;
+        this.dateOfLastRepairs = dateOfLastRepairs;
+        this.lastMechanicShop = lastMechanicShop;
+        this.daysSinceLastRepairs = daysSinceLastRepairs;
+    }
+
+    public void addPartRepaired(String partName, float cost) {
+        if(vehiclePartsRepaired.containsKey(partName)){
+            vehiclePartsRepaired.get(partName).add(cost);
+        }
+        LinkedList<Float> currLinkedList = new LinkedList<>();
+        currLinkedList.add(cost);
+        vehiclePartsRepaired.put(partName, currLinkedList);
     }
 
     public boolean isPartRepaired(String partName) {
         return vehiclePartsRepaired.containsKey(partName);
     }
 
-    public float getTotalCost() {
-        return costOfRepairs;
+    public float getTotalCostOfRepairs() {
+        float totalCost = 0;
+        HashNode<String, LinkedList<Float>>[] buckets = vehiclePartsRepaired.getBuckets();
+        for(int i = 0; i < buckets.length; i++){
+            if(buckets[i] != null) {
+                LinkedList<Float> currLinkedList = vehiclePartsRepaired.get(buckets[i].getKey());
+                Node<Float> head = currLinkedList.getHead();
+                while (head != null) {
+                    totalCost += head.entity;
+                    head = head.nextNode;
+                }
+            }
+        }
+        return totalCost;
     }
 
-    public Date getDateOfRepairs() {
-        return dateOfRepairs;
+    public Date getDateOfLastRepairs() {
+        return dateOfLastRepairs;
     }
 
     // Getters
     public int getVehicleId() { return vehicleId; }
-    public HashMap<String, String> getVehiclePartsRepaired() {
+    public HashMap<String, LinkedList<Float>> getVehiclePartsRepaired() {
         return vehiclePartsRepaired;
     }
-    public float getCostOfRepairs() { return costOfRepairs; }
-    public String getMechanicShop() { return mechanicShop; }
+    public String getLastMechanicShop() { return lastMechanicShop; }
     public int getDaysSinceLastRepairs(){
         return this.daysSinceLastRepairs;
     }
     public void setDaysSinceLastRepairs(int n){
         this.daysSinceLastRepairs = n;
     }
-    public void setDateOfRepairs(Date dateOfRepairs){
-        this.dateOfRepairs = dateOfRepairs;
+    public void setDateOfLastRepairs(Date dateOfRepairs){
+        this.dateOfLastRepairs = dateOfRepairs;
     }
-    public void setCostOfRepairs(float costOfRepairs){
-        this.costOfRepairs = costOfRepairs;
-    }
-    public void setMechanicShop(String mechanicShop){
-        this.mechanicShop = mechanicShop;
+    public void setLastMechanicShop(String mechanicShop){
+        this.lastMechanicShop = mechanicShop;
     }
     public void addPartNeedingRepairs(String partNeedingRepairs, int priority){
         // priority is from 1 to 3
