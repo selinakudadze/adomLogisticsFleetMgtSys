@@ -1,0 +1,5 @@
+vehicleId,  daysSinceLastRepairs,  dateOfLastRepairs,  vehiclePartsRepaired, costsOfRepairs, mechanicShop
+
+1,12,null,Brake;Oil,250-300;500-400,QuickFix Garage
+2,15,null,Engine oil,220.00,Total AutoCare
+3,20,null,Transmission fluid,620.00,Speedy Repairs
