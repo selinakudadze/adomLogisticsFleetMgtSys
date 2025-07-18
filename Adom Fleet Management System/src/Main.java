@@ -1,12 +1,18 @@
+import datastructures.HashNode;
+import datastructures.LinkedList;
+import datastructures.Node;
 import models.Driver;
 import models.Order;
 import models.Vehicle;
+import models.Maintenance;
 import sort_and_search.BinarySearch;
 import utils.VehicleReader;
 import utils.OrderReader;
+import utils.MaintenanceReader;
 import scheduler.MaintenanceScheduler;
 import delivery_rerouting.DeliveryReroute;
 import driverassignment.DriverAssignment;
+import datastructures.HashMap;
 
 import java.util.Scanner;
 
@@ -17,10 +23,17 @@ public class Main {
     public static void main(String[] args) {
         //OrderTracker orderTracker = new OrderTracker();
 //        while(true) {
-        OrderReader orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+        OrderReader orderReader = new OrderReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
         Order[] orders = orderReader.readOrdersFromFile();
-        VehicleReader vehicleReader = new VehicleReader("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
+        VehicleReader vehicleReader = new VehicleReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
         Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
+        MaintenanceReader maintenanceReader = new MaintenanceReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Maintenance.txt");
+        HashMap<Integer, Maintenance> maintenances = maintenanceReader.readMaintenancesFromFile();
+        // add each vehicle's maintenance info
+        for(Vehicle vehicle: vehicles) {
+            vehicle.setMaintenanceInfo(maintenances.get(vehicle.getVehicleId()));
+        }
+
         MaintenanceScheduler maintenanceScheduler = new MaintenanceScheduler();
         DeliveryReroute deliveryReroute = new DeliveryReroute();
 
