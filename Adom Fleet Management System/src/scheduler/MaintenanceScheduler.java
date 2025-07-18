@@ -1,6 +1,7 @@
 package scheduler;
 
 import com.sun.tools.javac.Main;
+import datastructures.PriorityNode;
 import models.Maintenance;
 import models.Vehicle;
 import datastructures.MinHeap;
@@ -58,7 +59,7 @@ public class MaintenanceScheduler {
             }
             else{
                 String partRepaired = mInfo.getUrgentPartNeedingRepairs();
-                if(!Objects.equals(partRepaired, "null")){
+                if(partRepaired != null){
                     vehicle.updateMaintenanceInfo(partRepaired, 0, dateOfRepairs, cost, mechanicShop);
                 }
                 else{
@@ -69,7 +70,7 @@ public class MaintenanceScheduler {
     }
 
     private boolean shouldFlagForService(Vehicle vehicle) {
-        if(vehicle.getMaintenanceInfo().getUrgentPartNeedingRepairs() != "null"){
+        if(vehicle.getMaintenanceInfo().getUrgentPartNeedingRepairs() != null){
             return true;
         }
         return vehicle.getMileage() >= 10000 || vehicle.getDaysSinceLastService() >= 90;
