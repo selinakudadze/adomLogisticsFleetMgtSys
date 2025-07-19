@@ -3,7 +3,7 @@ package datastructures;
 
 public class LinkedList<T> {
     public Node<T> head;
-    private int size;
+    public int size;
 
     // constructor of the linked list class
     public LinkedList() {
@@ -103,17 +103,8 @@ public class LinkedList<T> {
         }
         return true;
     }
+
+    public Node<T> getHead() {
+        return head;
+    }
 }
-
-
-// Constructor (LinkedList) --> Time Complexity: O(1)
-// add(T entity) --> Time Complexity: O(n)
-// remove(T entity) --> Time Complexity: O(n)
-// search(T entity) --> Time Complexity: O(n)
-// size() --> Time Complexity: O(1)
-// get(int index) --> Time Complexity: O(n)
-// toStringArray() --> Time Complexity: O(n)
-// clear() --> Time Complexity: O(1)
-// containsAll(LinkedList<t> other)</t> --> Time Complexity: $ O(n . m)
-// The implementation is space-efficient, using O(n) for the list itself and
-// O(1) for most operations, except toStringArray which requires O(n) temporary space.

@@ -71,6 +71,9 @@ public class HashMap<K, V> {
     public boolean containsKey(K key) {
         return get(key) != null;
     }
+    public HashNode<K, V>[] getBuckets(){
+        return this.buckets;
+    }
 
     public void printAll() {
         for (int i = 0; i < capacity; i++) {

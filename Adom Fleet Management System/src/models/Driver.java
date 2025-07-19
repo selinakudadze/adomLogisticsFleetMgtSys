@@ -2,6 +2,10 @@ package models;
 
 import datastructures.LinkedList;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Driver{
 
 
@@ -47,6 +51,43 @@ public class Driver{
         this.experience=experience;
         //this.proximity???
 
+    }
+    public Driver(String ID) {
+        try {
+            File driverFile = new File("Adom Fleet Management System/src/dummyTextFiles/Drivers.txt");
+            Scanner driverScanner = new Scanner(driverFile);
+
+            while (driverScanner.hasNextLine()) {
+                String[] fields = driverScanner.nextLine().split(";");
+                LinkedList<String> experience = new LinkedList<>();
+
+
+                String[] experienceList = fields[5].split(",");
+
+                if (fields[0].equals(ID)) {
+                    int j = 0;
+
+                    while (j < experienceList.length) {
+                        experience.add(experienceList[j]);
+                        j++;
+                    }
+                    this.driverID=fields[0];
+                    this.driverName=fields[1];
+                    this.licenseTpye=fields[2];
+                    this.availability=fields[3];
+                    this.currentDriverLocation=fields[4];
+                    this.experience=experience;
+
+                    this.assignedOrderID = 0;
+                    this.assignedVehicleID = 0;
+                    this.orderStatus = null;
+                    return;
+                }
+            }
+            System.out.println("Driver with ID " + ID + " not found.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Driver file not found: "+e.getMessage());;
+        }
     }
 
 
@@ -112,5 +153,16 @@ public class Driver{
         return experience.search(orderOrigin);
     }
 
+    @Override
+    public String toString() {
+        return "Driver ID: " + driverID +
+                "\nFull name: " + driverName +
+                "\nLicense Type: " + licenseTpye +
+                "\nAvailability Status: " + availability +
+                "\nCurrent Location: " + currentDriverLocation +
+                "\nAssigned Order ID: " + (assignedOrderID==0 ? "Not assigned yet" : assignedOrderID)+
+                "\nOrder status: " + (orderStatus==null ? "Not assigned yet" : orderStatus).toString()+
+                "\nAssigned Vehicle ID: " + (assignedVehicleID==0? "No assigned vehicle":assignedVehicleID);
+    }
 
 }

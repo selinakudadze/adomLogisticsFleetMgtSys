@@ -10,4 +10,12 @@ public class HashNode<K, V> {
         this.value = value;
         this.next = null;
     }
+
+    public K getKey() {
+        return key;
+    }
+
+    public V getValue() {
+        return value;
+    }
 }

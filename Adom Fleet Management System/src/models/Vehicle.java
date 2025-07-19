@@ -1,8 +1,12 @@
 package models;
 
 import datastructures.HashMap;
+import datastructures.LinkedList;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Vehicle implements Comparable<Vehicle>{
     private int vehicleId;
@@ -33,6 +37,46 @@ public class Vehicle implements Comparable<Vehicle>{
         this.currentLat = currentLat;
         this.currentDriver = currentDriver;
         this.daysSinceLastService = daysSinceLastService;
+    }
+
+    public Vehicle(int ID) {
+        try {
+            File driverFile = new File("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
+            Scanner driverScanner = new Scanner(driverFile);
+
+            while (driverScanner.hasNextLine()) {
+                String[] fields = driverScanner.nextLine().split(";");
+                LinkedList<String> experience = new LinkedList<>();
+
+
+                String[] experienceList = fields[5].split(",");
+                System.out.println(fields[0]);
+                if (fields[0].equals(ID)) {
+                    int j = 0;
+                    System.out.println(fields[0]);
+
+                    while (j < experienceList.length) {
+                        experience.add(experienceList[j]);
+                        j++;
+                    }
+                    this.vehicleId=Integer.parseInt(fields[0]);
+                    this.registrationNumber=fields[1];
+                    this.vehicleType=fields[2];
+                    this.mileage=Integer.parseInt(fields[3]);
+                    this.fuelUse=Float.parseFloat(fields[4]);
+                    this.assignedDriverId=null;
+
+                    this.daysSinceLastService=Integer.parseInt(fields[5]);
+                    this.maintenanceHistory=null;
+                    this.currentLong=0;
+                    this.currentLat=0;
+                    return;
+                }
+            }
+            System.out.println("Driver with ID " + ID + " not found.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Driver file not found: "+e.getMessage());;
+        }
     }
 
     public boolean canBeAssignedToDriver() {
@@ -128,20 +172,35 @@ public class Vehicle implements Comparable<Vehicle>{
     public Maintenance getMaintenanceInfo(){
         return this.maintenanceInfo;
     }
-    public void updateMaintenanceHistory(String partRepaired, int daysSinceLastRepairs, Date dateOfRepairs, float costOfRepairs, String mechanicShop){
+    public void updateMaintenanceInfo(String partRepaired, int daysSinceLastRepairs, Date dateOfLastRepairs, float costOfRepairs, String lastMechanicShop){
         if(this.getMaintenanceInfo() == null){
-            this.maintenanceInfo = new Maintenance(this.vehicleId, daysSinceLastRepairs, dateOfRepairs, costOfRepairs, mechanicShop);
+            this.maintenanceInfo = new Maintenance(this.vehicleId, daysSinceLastRepairs, dateOfLastRepairs, lastMechanicShop);
         }
         this.maintenanceInfo.setDaysSinceLastRepairs(daysSinceLastRepairs);
-        this.maintenanceInfo.setDateOfRepairs(dateOfRepairs);
-        this.maintenanceInfo.setMechanicShop(mechanicShop);
-        this.maintenanceInfo.addPartRepaired(partRepaired, "Repaired");
+        this.maintenanceInfo.setDateOfLastRepairs(dateOfLastRepairs);
+        this.maintenanceInfo.setLastMechanicShop(lastMechanicShop);
+        this.maintenanceInfo.addPartRepaired(partRepaired, costOfRepairs);
+    }
+    public void setMaintenanceInfo(Maintenance maintenance){
+        this.maintenanceInfo = maintenance;
     }
 
     public void addRepair(String partNeedingRepairs, int priority){
         if(this.getMaintenanceInfo() == null){
-            this.maintenanceInfo = new Maintenance(this.vehicleId, 0, null, 0, "");
+            this.maintenanceInfo = new Maintenance(this.vehicleId, 0, null, "");
         }
         this.maintenanceInfo.addPartNeedingRepairs(partNeedingRepairs, priority);
     }
+//
+//    @Override
+//    public String toString() {
+//        return "Vehicle ID: " + vehicleId +
+//                "\nRegistration Number " + registrationNumber +
+//                "\nVehicle Type: " + vehicleType +
+//                "\nMileage " + mileage +
+//                "\nFuel Usage " + fuelUse +
+//                "\nCurrentDriver: " + currentDriver +
+//                "\nDays Since last service " + daysSinceLastService;
+//
+//    }
 }
