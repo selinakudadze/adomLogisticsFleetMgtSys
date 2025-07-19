@@ -19,7 +19,8 @@ public class Main {
     public static void main(String[] args) {
         OrderTracker orderTracker = new OrderTracker();
         while(true) {
-        OrderReader orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+
+         orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
         Order[] orders= orderReader.readOrdersFromFile();
         VehicleReader vehicleReader = new VehicleReader("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
         Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
@@ -44,8 +45,8 @@ public class Main {
             System.out.println("7. Show outliers");
             System.out.println("8. Exit");
 
-            String choice = scanner.nextLine();
-            //scanner.nextLine();
+    //         String choice = scanner.nextLine();
+    //         //scanner.nextLine();
 
             switch (choice) {
                 case "1":
