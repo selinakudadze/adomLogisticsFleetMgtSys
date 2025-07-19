@@ -103,4 +103,8 @@ public class LinkedList<T> {
         }
         return true;
     }
+
+    public Node<T> getHead() {
+        return head;
+    }
 }

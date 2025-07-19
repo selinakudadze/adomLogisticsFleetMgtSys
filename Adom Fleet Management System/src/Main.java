@@ -1,15 +1,19 @@
-import delivery_tracking.OrderTracker;
+import datastructures.HashNode;
+import datastructures.LinkedList;
+import datastructures.Node;
 import models.Driver;
 import models.Order;
 import models.Vehicle;
+import models.Maintenance;
 import sort_and_search.BinarySearch;
 import utils.VehicleReader;
 import utils.OrderReader;
+import utils.MaintenanceReader;
 import scheduler.MaintenanceScheduler;
 import delivery_rerouting.DeliveryReroute;
 import driverassignment.DriverAssignment;
+import datastructures.HashMap;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 import static sort_and_search.BinarySearch.searchByRegistration;
@@ -17,13 +21,19 @@ import static sort_and_search.BinarySearch.searchByRegistration;
 public class Main {
 
     public static void main(String[] args) {
-        OrderTracker orderTracker = new OrderTracker();
-        while(true) {
-
-         orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
-        Order[] orders= orderReader.readOrdersFromFile();
-        VehicleReader vehicleReader = new VehicleReader("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
+        //OrderTracker orderTracker = new OrderTracker();
+//        while(true) {
+        OrderReader orderReader = new OrderReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+        Order[] orders = orderReader.readOrdersFromFile();
+        VehicleReader vehicleReader = new VehicleReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
         Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
+        MaintenanceReader maintenanceReader = new MaintenanceReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Maintenance.txt");
+        HashMap<Integer, Maintenance> maintenances = maintenanceReader.readMaintenancesFromFile();
+        // add each vehicle's maintenance info
+        for(Vehicle vehicle: vehicles) {
+            vehicle.setMaintenanceInfo(maintenances.get(vehicle.getVehicleId()));
+        }
+
         MaintenanceScheduler maintenanceScheduler = new MaintenanceScheduler();
         DeliveryReroute deliveryReroute = new DeliveryReroute();
 
@@ -45,8 +55,8 @@ public class Main {
             System.out.println("7. Show outliers");
             System.out.println("8. Exit");
 
-    //         String choice = scanner.nextLine();
-    //         //scanner.nextLine();
+            String choice = scanner.nextLine();
+            //scanner.nextLine();
 
             switch (choice) {
                 case "1":
@@ -164,7 +174,6 @@ public class Main {
                         System.out.println("Show outliers");
                         float[] vehicleFuelUsage = new float[vehicles.length];
                         for (int i = 0; i < vehicles.length; i++) {
-                            System.out.println(vehicles[i].getFuelUse());
                             vehicleFuelUsage[i] = vehicles[i].calculateAverageFuelConsumption();
                         }
 
@@ -206,9 +215,6 @@ public class Main {
                     break;
                 } else if (continueChoice.equals("n")) {
                     System.out.println("Exiting...");
-                    System.out.println("\nSEE YOU SOON...");
-                    System.out.println("----------------------------------------");
-                    System.out.println("ADOM LOGISTICS FLEET MANAGEMENT SYSTEM");
                     System.exit(0);
                 } else {
                     System.out.println("Invalid input. Please enter 'y' for yes or 'n' for no.");
@@ -223,10 +229,6 @@ public class Main {
         scanner.close();
 
 
-    }
-//        OrderTracker tracker = new OrderTracker();
-//        Order orders = tracker.loadOrdersFromFile("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
-//        System.out.println(orders_1[5].toString());
     }
 }
 

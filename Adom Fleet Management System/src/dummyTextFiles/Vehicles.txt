@@ -4,4 +4,3 @@ vehicleId;registrationNumber;vehicleType;mileage;fuelUsage;currentLong;currentLa
 3;GH-9012-C;Truck;25000;1.001;2.001;9.8;Dude;60
 4;GH-3456-D;Van;12000;1.001;2.001;5.9;James;45
 5;GH-7890-E;Truck;18000;8.0;1.001;2.001;John;20
-
