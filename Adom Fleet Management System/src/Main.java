@@ -23,11 +23,11 @@ public class Main {
     public static void main(String[] args) {
         //OrderTracker orderTracker = new OrderTracker();
 //        while(true) {
-        OrderReader orderReader = new OrderReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+        OrderReader orderReader = new OrderReader("src/dummyTextFiles/Deliveries.txt");
         Order[] orders = orderReader.readOrdersFromFile();
-        VehicleReader vehicleReader = new VehicleReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
+        VehicleReader vehicleReader = new VehicleReader("src/dummyTextFiles/Vehicles.txt");
         Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
-        MaintenanceReader maintenanceReader = new MaintenanceReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Maintenance.txt");
+        MaintenanceReader maintenanceReader = new MaintenanceReader("src/dummyTextFiles/Maintenance.txt");
         HashMap<Integer, Maintenance> maintenances = maintenanceReader.readMaintenancesFromFile();
         // add each vehicle's maintenance info
         for(Vehicle vehicle: vehicles) {
@@ -231,4 +231,3 @@ public class Main {
 
     }
 }
-

@@ -68,8 +68,8 @@ public class Vehicle implements Comparable<Vehicle>{
 
                     this.daysSinceLastService=Integer.parseInt(fields[5]);
                     this.maintenanceHistory=null;
-                   this.currentLong=0;
-                   this.currentLat=0;
+                    this.currentLong=0;
+                    this.currentLat=0;
                     return;
                 }
             }

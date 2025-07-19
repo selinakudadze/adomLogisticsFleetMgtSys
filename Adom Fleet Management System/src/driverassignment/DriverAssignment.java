@@ -11,9 +11,6 @@
 
  import java.io.File;
  import java.io.FileNotFoundException;
- import java.time.LocalDate;
- import java.time.LocalDateTime;
- import java.util.Date;
  import java.util.Scanner;
 
  public class DriverAssignment {
@@ -22,7 +19,7 @@
 
      public void LoadAvailableDrivers(){
          try{
-             File driverFile=new File("Adom Fleet Management System/src/dummyTextFiles/Drivers.txt");
+             File driverFile=new File("src/dummyTextFiles/Drivers.txt");
              Scanner driverScanner =new Scanner(driverFile);
 
 
@@ -76,10 +73,7 @@
                  System.out.println("The order "+ order.getOrderId()+" has been assigned to "+currentDriver.getDriverID());
                  assignedDriversQueue.enqueue(currentDriver);
                  order.setAssignedDriver(currentDriver.getDriverID());
-                 order.setDeliveryStatus(String.valueOf(Order.DeliveryStatus.IN_TRANSIT));
-
-                 LocalDateTime pickUpDate = LocalDateTime.now();
-                 order.setPickupTime(pickUpDate);
+                 order.updateDeliveryStatus(String.valueOf(Order.DeliveryStatus.IN_TRANSIT));
                  currentDriver.updateAvailability(Driver.AvailabilityStatus.OFF_DUTY);//changes the status of the driver when assigned to an order
                  currentDriver.updateOrderStatus(Driver.OrderStatus.IN_TRANSIT);//update the order status of the Driver
 
@@ -90,14 +84,14 @@
                  }else{
                      while(!driverQueue.isEmpty()){
                          Driver dequeuedDriver=driverQueue.dequeue().entity;
-                         //System.out.println("The "+ dequeuedDriver.getDriverID()+" driver was added to the other queue");
+                         System.out.println("The "+ dequeuedDriver.getDriverID()+" driver was added to the other queue");
                          placeHolderDriverQueue.enqueue(dequeuedDriver);
                      }break;
                  }
 
              }else{
                  placeHolderDriverQueue.enqueue(currentDriver);
-                 //System.out.println("The "+ currentDriver.getDriverID()+" driver was added to the other queue");
+                 System.out.println("The "+ currentDriver.getDriverID()+" driver was added to the other queue");
                  if(driverQueue.isEmpty()){
                      System.out.println("There are no available drivers to be assigned order "+order.getOrderId()+" based on EXPERIENCE. Try proximity");
                      break;

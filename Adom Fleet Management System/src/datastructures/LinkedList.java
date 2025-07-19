@@ -2,8 +2,8 @@ package datastructures;
 
 
 public class LinkedList<T> {
-    private Node<T> head;
-    private int size;
+    public Node<T> head;
+    public int size;
 
     // constructor of the linked list class
     public LinkedList() {
