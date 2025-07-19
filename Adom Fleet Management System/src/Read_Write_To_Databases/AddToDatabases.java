@@ -83,62 +83,62 @@ public class AddToDatabases {
                     lines = tempVehicles;
                     break;
 
-                case "src/dummyTextFiles/Deliveries.txt":
-                    if (!criterionType.equals("vehicleID")) {
-                        System.out.println("Invalid criterion for Deliveries.txt. Use vehicleID.");
-                        return;
-                    }
-                    LinkedList<String> tempDeliveries = new LinkedList<>();
-                    current = lines.head;
-                    while (current != null) {
-                        String[] fields = current.entity.split(";");
-                        if (fields.length == 0 || !fields[0].equals(criterionValue)) {
-                            tempDeliveries.add(current.entity);
-                        } else {
-                            removed = true;
-                        }
-                        current = current.nextNode;
-                    }
-                    lines = tempDeliveries;
-                    break;
+//                case "src/dummyTextFiles/Deliveries.txt":
+//                    if (!criterionType.equals("vehicleID")) {
+//                        System.out.println("Invalid criterion for Deliveries.txt. Use vehicleID.");
+//                        return;
+//                    }
+//                    LinkedList<String> tempDeliveries = new LinkedList<>();
+//                    current = lines.head;
+//                    while (current != null) {
+//                        String[] fields = current.entity.split(";");
+//                        if (fields.length == 0 || !fields[0].equals(criterionValue)) {
+//                            tempDeliveries.add(current.entity);
+//                        } else {
+//                            removed = true;
+//                        }
+//                        current = current.nextNode;
+//                    }
+//                    lines = tempDeliveries;
+//                    break;
 
-                case "src/dummyTextFiles/Maintenance.txt":
-                    if (!criterionType.equals("vehicleID")) {
-                        System.out.println("Invalid criterion for Maintenance.txt. Use vehicleID.");
-                        return;
-                    }
-                    LinkedList<String> tempMaintenance = new LinkedList<>();
-                    current = lines.head;
-                    while (current != null) {
-                        String[] fields = current.entity.split(";");
-                        if (!fields[0].equals(criterionValue)) {
-                            tempMaintenance.add(current.entity);
-                        } else {
-                            removed = true;
-                        }
-                        current = current.nextNode;
-                    }
-                    lines = tempMaintenance;
-                    break;
+//                case "src/dummyTextFiles/Maintenance.txt":
+//                    if (!criterionType.equals("vehicleID")) {
+//                        System.out.println("Invalid criterion for Maintenance.txt. Use vehicleID.");
+//                        return;
+//                    }
+//                    LinkedList<String> tempMaintenance = new LinkedList<>();
+//                    current = lines.head;
+//                    while (current != null) {
+//                        String[] fields = current.entity.split(";");
+//                        if (!fields[0].equals(criterionValue)) {
+//                            tempMaintenance.add(current.entity);
+//                        } else {
+//                            removed = true;
+//                        }
+//                        current = current.nextNode;
+//                    }
+//                    lines = tempMaintenance;
+//                    break;
 
-                case "src/dummyTextFiles/locations.txt":
-                    if (!criterionType.equals("locationName")) {
-                        System.out.println("Invalid criterion for locations.txt. Use locationName.");
-                        return;
-                    }
-                    LinkedList<String> tempLocations = new LinkedList<>();
-                    current = lines.head;
-                    while (current != null) {
-                        String[] fields = current.entity.split(";");
-                        if (!fields[0].equals(criterionValue)) {
-                            tempLocations.add(current.entity);
-                        } else {
-                            removed = true;
-                        }
-                        current = current.nextNode;
-                    }
-                    lines = tempLocations;
-                    break;
+//                case "src/dummyTextFiles/locations.txt":
+//                    if (!criterionType.equals("locationName")) {
+//                        System.out.println("Invalid criterion for locations.txt. Use locationName.");
+//                        return;
+//                    }
+//                    LinkedList<String> tempLocations = new LinkedList<>();
+//                    current = lines.head;
+//                    while (current != null) {
+//                        String[] fields = current.entity.split(";");
+//                        if (!fields[0].equals(criterionValue)) {
+//                            tempLocations.add(current.entity);
+//                        } else {
+//                            removed = true;
+//                        }
+//                        current = current.nextNode;
+//                    }
+//                    lines = tempLocations;
+//                    break;
 
                 default:
                     System.out.println("Unsupported file for removal.");
@@ -172,11 +172,12 @@ public class AddToDatabases {
                 System.out.println("0. Exit");
                 System.out.println("1. Add Driver");
                 System.out.println("2. Add Vehicle");
-                System.out.println("3. Add Order");
-                System.out.println("4. Add Maintenance Record");
-                System.out.println("5. Add Location");
-                System.out.println("6. Remove Data");
+                System.out.println("3. Remove Data");
                 System.out.print("Choose option: ");
+
+                // System.out.println("3. Add Order");
+                // System.out.println("4. Add Maintenance Record");
+                // System.out.println("5. Add Location");
 
                 String input = scanner.nextLine().trim();
                 if (input.equalsIgnoreCase("0") || input.equalsIgnoreCase("exit")) {
@@ -210,38 +211,38 @@ public class AddToDatabases {
                         };
                         break;
 
+//                    case 3:
+//                        label = "Order";
+//                        filePath = "src/dummyTextFiles/Deliveries.txt";
+//                        fields = new String[]{
+//                                "Order ID", "Client Name", "Origin", "Destination",
+//                                "Scheduled Date & Time (yyyy-MM-ddTHH:mm)",
+//                                "Origin Latitude", "Origin Longitude",
+//                                "Destination Latitude", "Destination Longitude"
+//                        };
+//                        break;
+//
+//                    case 4:
+//                        label = "Maintenance";
+//                        filePath = "src/dummyTextFiles/Maintenance.txt";
+//                        fields = new String[]{
+//                                "Vehicle ID", "Date of Repair (yyyy-MM-dd)", "Cost of Repairs", "Mechanic Shop"
+//                        };
+//                        break;
+//
+//                    case 5:
+//                        label = "Location";
+//                        filePath = "src/dummyTextFiles/locations.txt";
+//                        fields = new String[]{
+//                                "Location Name", "Latitude", "Longitude"
+//                        };
+//                        break;
+
                     case 3:
-                        label = "Order";
-                        filePath = "src/dummyTextFiles/Deliveries.txt";
-                        fields = new String[]{
-                                "Order ID", "Client Name", "Origin", "Destination",
-                                "Scheduled Date & Time (yyyy-MM-ddTHH:mm)",
-                                "Origin Latitude", "Origin Longitude",
-                                "Destination Latitude", "Destination Longitude"
-                        };
-                        break;
-
-                    case 4:
-                        label = "Maintenance";
-                        filePath = "src/dummyTextFiles/Maintenance.txt";
-                        fields = new String[]{
-                                "Vehicle ID", "Date of Repair (yyyy-MM-dd)", "Cost of Repairs", "Mechanic Shop"
-                        };
-                        break;
-
-                    case 5:
-                        label = "Location";
-                        filePath = "src/dummyTextFiles/locations.txt";
-                        fields = new String[]{
-                                "Location Name", "Latitude", "Longitude"
-                        };
-                        break;
-
-                    case 6:
                         System.out.println("\n=== Remove Data Options ===");
                         System.out.println("1. Remove by Driver ID (Drivers.txt)");
-                        System.out.println("2. Remove by Vehicle ID (Vehicles.txt, Deliveries.txt, Maintenance.txt)");
-                        System.out.println("3. Remove by Location Name (locations.txt)");
+                        System.out.println("2. Remove by Vehicle ID (VH<vehicle number>)");
+//                        System.out.println("3. Remove by Location Name (locations.txt)");
                         System.out.print("Choose removal option: ");
                         int removeChoice = Integer.parseInt(scanner.nextLine().trim());
 
@@ -257,11 +258,11 @@ public class AddToDatabases {
                                 filePathRemove = null; // Will be determined by context
                                 System.out.print("Enter Vehicle ID to remove: ");
                                 break;
-                            case 3:
-                                criterionType = "locationName";
-                                filePathRemove = "src/dummyTextFiles/locations.txt";
-                                System.out.print("Enter Location Name to remove: ");
-                                break;
+//                            case 3:
+//                                criterionType = "locationName";
+//                                filePathRemove = "src/dummyTextFiles/locations.txt";
+//                                System.out.print("Enter Location Name to remove: ");
+//                                break;
                             default:
                                 System.out.println("Invalid removal option.");
                                 continue;
@@ -270,8 +271,8 @@ public class AddToDatabases {
                         String criterionValue = scanner.nextLine().trim();
                         if (removeChoice == 2) {
                             removeData("src/dummyTextFiles/Vehicles.txt", criterionType, criterionValue);
-                            removeData("src/dummyTextFiles/Deliveries.txt", criterionType, criterionValue);
-                            removeData("src/dummyTextFiles/Maintenance.txt", criterionType, criterionValue);
+//                            removeData("src/dummyTextFiles/Deliveries.txt", criterionType, criterionValue);
+//                            removeData("src/dummyTextFiles/Maintenance.txt", criterionType, criterionValue);
                         } else {
                             removeData(filePathRemove, criterionType, criterionValue);
                         }
