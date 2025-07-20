@@ -37,6 +37,7 @@ public class Vehicle implements Comparable<Vehicle>{
         this.currentLat = currentLat;
         this.currentDriver = currentDriver;
         this.daysSinceLastService = daysSinceLastService;
+        this.maintenanceInfo = new Maintenance(vehicleId);
     }
 
     public Vehicle(int ID) {
@@ -68,8 +69,9 @@ public class Vehicle implements Comparable<Vehicle>{
 
                     this.daysSinceLastService=Integer.parseInt(fields[5]);
                     this.maintenanceHistory=null;
-                    this.currentLong=0;
-                    this.currentLat=0;
+                   this.currentLong=0;
+                   this.currentLat=0;
+                    this.maintenanceInfo = new Maintenance(vehicleId);
                     return;
                 }
             }

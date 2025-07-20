@@ -10,7 +10,7 @@ public class Maintenance {
     private Date dateOfLastRepairs;
     private String lastMechanicShop;
     private int daysSinceLastRepairs;
-    private PriorityQueue<String> partsNeedingRepairs = new PriorityQueue<>(); // vehicles should have at most three parts needing repairs
+    private PriorityQueue<String> partsNeedingRepairs; // vehicles should have at most three parts needing repairs
 
     public Maintenance(int vehicleId, int daysSinceLastRepairs, Date dateOfLastRepairs, String lastMechanicShop) {
         this.vehicleId = vehicleId;
@@ -18,6 +18,7 @@ public class Maintenance {
         this.dateOfLastRepairs = dateOfLastRepairs;
         this.lastMechanicShop = lastMechanicShop;
         this.daysSinceLastRepairs = daysSinceLastRepairs;
+        this.partsNeedingRepairs = new PriorityQueue<>();
     }
 
     public Maintenance(int vehicleId, HashMap<String, LinkedList<Float>> vehiclePartsRepaired, int daysSinceLastRepairs, Date dateOfLastRepairs, String lastMechanicShop) {
@@ -26,6 +27,14 @@ public class Maintenance {
         this.dateOfLastRepairs = dateOfLastRepairs;
         this.lastMechanicShop = lastMechanicShop;
         this.daysSinceLastRepairs = daysSinceLastRepairs;
+        this.partsNeedingRepairs = new PriorityQueue<>();
+    }
+    public Maintenance(int vehicleId) {
+        this.vehicleId = vehicleId;
+        this.vehiclePartsRepaired = new HashMap<>();
+        this.dateOfLastRepairs = null;
+        this.lastMechanicShop = null;
+        this.daysSinceLastRepairs = 0;
     }
 
     public void addPartRepaired(String partName, float cost) {
@@ -87,6 +96,9 @@ public class Maintenance {
     }
 
     public String getUrgentPartNeedingRepairs(){
-        return this.partsNeedingRepairs.peek().getValue();
+        if(this.partsNeedingRepairs.peek() != null){
+            return this.partsNeedingRepairs.peek().getValue();
+        }
+        return "None";
     }
 }
