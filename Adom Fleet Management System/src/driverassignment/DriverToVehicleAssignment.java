@@ -24,7 +24,7 @@ public class DriverToVehicleAssignment {
 
     public void LoadAvailableVehicles() {
         try {
-            File vehicleFile = new File("src/dummyTextFiles/Vehicles.txt");
+            File vehicleFile = new File("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
             Scanner vehicleScanner = new Scanner(vehicleFile);
 
             // Skip the header line
@@ -34,15 +34,18 @@ public class DriverToVehicleAssignment {
 
             while (vehicleScanner.hasNextLine()) {
                 String[] fields = vehicleScanner.nextLine().split(";");
-                if (fields.length >= 6) {
-                    int vehicleId = Integer.parseInt(fields[0].substring(4));
+                if (fields.length >= 9) {
+                    int vehicleId = Integer.parseInt(fields[0]);
                     String registrationNumber = fields[1];
                     String vehicleType = fields[2];
                     int mileage = Integer.parseInt(fields[3]);
                     float fuelUse = Float.parseFloat(fields[4]);
-                    int lastServiceDate = Integer.parseInt(fields[5]);
+                    double currentLong= Double.parseDouble(fields[5]);
+                    double currentLat = Double.parseDouble(fields[6]);
+                    String currentDriver = fields[7];
+                    int daysSinceLastService = Integer.parseInt(fields[8]);
 
-                    Vehicle vehicle = new Vehicle(vehicleId, registrationNumber, vehicleType, mileage, fuelUse, 0.0, 0.0, null, lastServiceDate);
+                    Vehicle vehicle = new Vehicle(vehicleId, registrationNumber, vehicleType, mileage, fuelUse, 0.0, 0.0, null, daysSinceLastService);
                     vehicleTreeByType.insert(vehicle); // Insert by vehicleType (using toString for comparison)
                     vehicleTreeByMileage.insert(vehicle); // Insert by mileage
                 }
@@ -53,6 +56,15 @@ public class DriverToVehicleAssignment {
         } catch (Exception e) {
             System.out.println("Error loading vehicles: " + e.getMessage());
         }
+    }
+
+    //added methods to retrieve vehicle trees to be used in main
+    public BinarySearchTree<Vehicle> getVehicleTreeByType() {
+        return vehicleTreeByType;
+    }
+
+    public  BinarySearchTree<Vehicle> getVehicleTreeByMileage() {
+        return vehicleTreeByMileage;
     }
 
     public void assignVehicleToDriver(Driver driver) {

@@ -8,7 +8,7 @@ public class PriorityQueue<T> {
 
     public PriorityQueue() {
         this.head = null;
-        int size = 0;
+        this.size = 0;
     }
 
     // Add a node to the priority queue

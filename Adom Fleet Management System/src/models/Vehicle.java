@@ -140,7 +140,7 @@ public class Vehicle implements Comparable<Vehicle>{
 
     @Override
     public String toString() {
-        String vehicleInfo = registrationNumber + "| Mileage: " + " | LastService: " + daysSinceLastService + " | FuelUse: " + fuelUse + " | Location: (" + currentLong + ", " + currentLat + ")";
+        String vehicleInfo = registrationNumber + "| Mileage: " + mileage + " | LastService: " + daysSinceLastService + " | Vehicle Type: " + vehicleType +" | FuelUse: " + fuelUse + " | Location: (" + currentLong + ", " + currentLat + ")";
         if(this.maintenanceInfo != null){
             vehicleInfo += "| Urgent part needing repairs: " + this.maintenanceInfo.getUrgentPartNeedingRepairs();
         }

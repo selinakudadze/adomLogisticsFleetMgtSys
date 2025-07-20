@@ -1,4 +1,5 @@
 package utils;
+import datastructures.LinkedList;
 import models.Order;
 
 import java.io.File;
@@ -9,6 +10,9 @@ import java.util.Scanner;
 
 public class OrderReader {
     String fileName;
+    //adding linkedList to store orders
+    LinkedList<Order> ordersList = new LinkedList<>();
+
     public OrderReader(String fileName){
         this.fileName = fileName;
     }
@@ -54,7 +58,11 @@ public class OrderReader {
                             originLongitude,
                             destinationLatitude,
                             destinationLongitude);
+
+                    ordersList.add(orders[i]);//adding order to the linkedList
                     i++;
+
+
                 } catch (Exception e) {
                     System.err.println("Skipping invalid order: " + line);
                 }
@@ -63,5 +71,9 @@ public class OrderReader {
             System.err.println("Order file not found: " + fileName);
         }
         return Arrays.copyOf(orders, i);
+    }
+
+    public LinkedList<Order> getOrdersList() {
+        return ordersList;
     }
 }
