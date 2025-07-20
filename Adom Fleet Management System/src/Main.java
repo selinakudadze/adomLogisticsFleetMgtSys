@@ -55,6 +55,7 @@ public class Main {
         VehicleReader vehicleReader = new VehicleReader("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
         Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
         System.out.println("reg num of last vehicle:"+ vehicles[4].getRegistrationNumber());
+
         MaintenanceReader maintenanceReader = new MaintenanceReader("Adom Fleet Management System/src/dummyTextFiles/Maintenance.txt");
         HashMap<Integer, Maintenance> maintenances = maintenanceReader.readMaintenancesFromFile();
         // add each vehicle's maintenance info
@@ -119,7 +120,9 @@ public class Main {
                     break;
                 case "9":
                     try {
+                        System.out.println("Before error!!");
                         maintenanceScheduler.loadFromVehicleList(vehicles);
+                        System.out.println("After error!!");
                         for (Vehicle v : vehicles) {
                             System.out.println(v);
                         }

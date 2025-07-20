@@ -1,0 +1,21 @@
+vehicleId,dateOfRepairs,vehiclePartsRepaired,costOfRepairs,mechanicShop
+VH001,2025-06-01,Brake pads=Replaced,450.00,QuickFix Garage
+VH002,2025-06-15,Engine oil=Changed,220.00,Total AutoCare
+VH003,2025-06-10,Transmission fluid=Replaced,620.00,Speedy Repairs
+VH004,2025-06-25,Coolant=Flushed,300.00,MegaFix Ltd
+VH005,2025-07-01,Spark plugs=Replaced,180.00,AutoTech Services
+VH006,2025-07-10,Air filter=Changed,140.00,Total AutoCare
+VH007,2025-05-20,Timing belt=Replaced,950.00,Elite Mechanics
+VH008,2025-07-12,Battery=Replaced,270.00,Speedy Repairs
+VH009,2025-06-05,Brake fluid=Changed,200.00,MegaFix Ltd
+VH010,2025-07-08,Fuel filter=Changed,190.00,QuickFix Garage
+VH011,2025-06-22,AC Compressor=Replaced,500.00,Total AutoCare
+VH012,2025-07-05,Windshield wiper=Changed,90.00,QuickFix Garage
+VH013,2025-06-18,Oil filter=Replaced,160.00,MegaFix Ltd
+VH014,2025-07-03,Battery=Replaced,280.00,Speedy Repairs
+VH015,2025-06-28,Brake pads=Replaced,460.00,Elite Mechanics
+VH016,2025-07-13,Engine mount=Replaced,610.00,MegaFix Ltd
+VH017,2025-06-02,Clutch=Replaced,950.00,AutoTech Services
+VH018,2025-07-14,Oil filter=Changed,145.00,QuickFix Garage
+VH019,2025-06-30,Water pump=Replaced,370.00,Speedy Repairs
+VH020,2025-07-09,Drive belt=Replaced,210.00,Total AutoCare
