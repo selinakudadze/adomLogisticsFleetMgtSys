@@ -1,4 +1,7 @@
 package utils;
+import datastructures.HashMap;
+import datastructures.LinkedList;
+import delivery_tracking.OrderTracker;
 import models.Order;
 
 import java.io.File;
@@ -9,6 +12,11 @@ import java.util.Scanner;
 
 public class OrderReader {
     String fileName;
+    //adding linkedList to store orders
+    LinkedList<Order> ordersList = new LinkedList<>();
+    HashMap<Integer, Order> orderHashMap = new HashMap<>();
+
+
     public OrderReader(String fileName){
         this.fileName = fileName;
     }
@@ -54,7 +62,12 @@ public class OrderReader {
                             originLongitude,
                             destinationLatitude,
                             destinationLongitude);
+
+                    ordersList.add(orders[i]);//adding order to the linkedList
+                    orderHashMap.put(orders[i].getOrderId(), orders[i]);//adds order to hashMap
                     i++;
+
+
                 } catch (Exception e) {
                     System.err.println("Skipping invalid order: " + line);
                 }
@@ -63,5 +76,14 @@ public class OrderReader {
             System.err.println("Order file not found: " + fileName);
         }
         return Arrays.copyOf(orders, i);
+    }
+
+    public LinkedList<Order> getOrdersList() {
+        //returns list of orders
+        return ordersList;
+    }
+    public HashMap<Integer, Order> getOrderHashMap() {
+        //returns hashMap of orders
+        return orderHashMap;
     }
 }

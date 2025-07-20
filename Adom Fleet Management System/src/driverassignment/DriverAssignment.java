@@ -2,6 +2,7 @@
  package driverassignment;
 
 
+ import datastructures.HashMap;
  import datastructures.Queue;
  import datastructures.Node;
  import models.Driver;
@@ -15,11 +16,14 @@
 
  public class DriverAssignment {
      Queue<Driver> driverQueue=new Queue<>();
+     static LinkedList<String> AllDriversID=new LinkedList<String>();
+     static LinkedList<Driver> allDrivers=new LinkedList<>();
+     static HashMap<String,Driver> driverHashMap=new HashMap<>();//used to retrieve just a single driver based on driverId
      Queue<Driver> assignedDriversQueue=new Queue<>();
 
      public void LoadAvailableDrivers(){
          try{
-             File driverFile=new File("src/dummyTextFiles/Drivers.txt");
+             File driverFile=new File("Adom Fleet Management System/src/dummyTextFiles/Drivers.txt");
              Scanner driverScanner =new Scanner(driverFile);
 
 
@@ -27,15 +31,19 @@
                  String[] fields=driverScanner.nextLine().split(";");
                  LinkedList<String> experience=new LinkedList<>();
 
-                 if (fields.length >= 6 && fields[3].equals("ON_DUTY")) {
-                     String[] experienceList=fields[5].split(",");
-                     int j=0;
+                 AllDriversID.add(fields[0]);
+                 String[] experienceList=fields[5].split(",");
+                 int j=0;
 
-                     while(j<experienceList.length){
+                 while(j<experienceList.length){
                          experience.add(experienceList[j]);
                          j++;
-                     }
-                     Driver driver = new Driver(fields[0],fields[1],fields[2],fields[3],fields[4],experience);
+                 }
+
+                 Driver driver = new Driver(fields[0],fields[1],fields[2],fields[3],fields[4],experience);
+                 allDrivers.add(driver);
+                 driverHashMap.put(fields[0],driver);
+                 if (fields[3].equals("ON_DUTY")) {
                      driverQueue.enqueue(driver);
                  }
              }
@@ -48,10 +56,28 @@
          }
          }
 
+
+         //method that returns the list of drivers ID
+     public static LinkedList<String> getAllDriversID(){
+         DriverAssignment driverAssignment=new DriverAssignment();
+         driverAssignment.LoadAvailableDrivers();
+         return AllDriversID;
+     }
+
+     //this method returns a queue all drivers
+     public static LinkedList<Driver> getAllDrivers(){
+         return allDrivers;
+     }
+
+     //this method returns a hashMap of drivers. This will be used to retrieve a single driver
+     public static HashMap<String,Driver> getDriverHashMap(){
+         return driverHashMap;
+     }
+
      public void assignDriverToOrder(Order order){
 
          if (driverQueue.isEmpty()) {
-         System.out.println("No drivers available to assign to order " + order.getOrderId());
+         System.out.println("\nNo drivers available to assign to order " + order.getOrderId());
          return;
                      }
          //Assignment based on Experience
@@ -84,26 +110,25 @@
                  }else{
                      while(!driverQueue.isEmpty()){
                          Driver dequeuedDriver=driverQueue.dequeue().entity;
-                         System.out.println("The "+ dequeuedDriver.getDriverID()+" driver was added to the other queue");
+                         //System.out.println("The "+ dequeuedDriver.getDriverID()+" driver was added to the other queue");
                          placeHolderDriverQueue.enqueue(dequeuedDriver);
                      }break;
                  }
 
              }else{
                  placeHolderDriverQueue.enqueue(currentDriver);
-                 System.out.println("The "+ currentDriver.getDriverID()+" driver was added to the other queue");
+                 //System.out.println("The "+ currentDriver.getDriverID()+" driver was added to the other queue");
                  if(driverQueue.isEmpty()){
-                     System.out.println("There are no available drivers to be assigned order "+order.getOrderId()+" based on EXPERIENCE. Try proximity");
+                     System.out.println("\nThere are no available drivers to be assigned order "+order.getOrderId()+" based on EXPERIENCE. Trying proximity");
                      break;
                  }
                  Driver nextDriver=driverQueue.dequeue().entity;
                  currentDriver=nextDriver;
-                 System.out.println("The next driver to check is "+currentDriver.getDriverID());
+                 //System.out.println("The next driver to check is "+currentDriver.getDriverID());
 
                 
              }
-             //what if none of the drivers have been to the order destination?
-             //Use proximity?
+
             
 
          }
@@ -123,7 +148,7 @@
          System.out.println("No available drivers for order " + order.getOrderId());
          return;
            }
-         System.out.println("Attempting proximity-based assignment...");
+         System.out.println("\nAttempting proximity-based assignment...");
 
              // Gets coordinate for origin city
          Coordinate originCoord = LocationService.getCoordinate(order.getOrigin());
@@ -164,7 +189,7 @@
              order.updateDeliveryStatus(String.valueOf(Order.DeliveryStatus.IN_TRANSIT));
              assignedDriversQueue.enqueue(closestDriver);
 
-             System.out.println("Order " + order.getOrderId() + " assigned to " + closestDriver.getDriverID()
+             System.out.println("\nOrder " + order.getOrderId() + " assigned to " + closestDriver.getDriverID()
                      + " based on proximity (" + String.format("%.2f", minDistance) + " km).");
          } else {
              System.out.println("No suitable driver found based on proximity.");
@@ -192,7 +217,7 @@
 
      public static void main(String[] args){
          DriverAssignment driverAssignment=new DriverAssignment();
-          LocationService.loadLocations("src/dummyTextFiles/locations.txt");
+          LocationService.loadLocations("Adom Fleet Management System/src/dummyTextFiles/locations.txt");
          driverAssignment.LoadAvailableDrivers();
 
          Order order=new Order(1121,"SEAK","Dome","Kpedze",null,0,0,0,0);

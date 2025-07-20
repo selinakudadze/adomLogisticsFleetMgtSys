@@ -1,201 +1,72 @@
-import datastructures.HashNode;
-import datastructures.LinkedList;
-import datastructures.Node;
-import models.Driver;
-import models.Order;
-import models.Vehicle;
-import models.Maintenance;
-import sort_and_search.BinarySearch;
-import utils.VehicleReader;
-import utils.OrderReader;
-import utils.MaintenanceReader;
-import scheduler.MaintenanceScheduler;
-import delivery_rerouting.DeliveryReroute;
-import driverassignment.DriverAssignment;
-import datastructures.HashMap;
-
 import java.util.Scanner;
 
+import static Read_Write_To_Databases.AddToDatabases.runDataEntry;
 import static sort_and_search.BinarySearch.searchByRegistration;
+import static utils.MainClassReader.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        //OrderTracker orderTracker = new OrderTracker();
-//        while(true) {
-        OrderReader orderReader = new OrderReader("src/dummyTextFiles/Deliveries.txt");
-        Order[] orders = orderReader.readOrdersFromFile();
-        VehicleReader vehicleReader = new VehicleReader("src/dummyTextFiles/Vehicles.txt");
-        Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
-        MaintenanceReader maintenanceReader = new MaintenanceReader("src/dummyTextFiles/Maintenance.txt");
-        HashMap<Integer, Maintenance> maintenances = maintenanceReader.readMaintenancesFromFile();
-        // add each vehicle's maintenance info
-        for(Vehicle vehicle: vehicles) {
-            vehicle.setMaintenanceInfo(maintenances.get(vehicle.getVehicleId()));
-        }
-
-        MaintenanceScheduler maintenanceScheduler = new MaintenanceScheduler();
-        DeliveryReroute deliveryReroute = new DeliveryReroute();
-
-        DriverAssignment driverAssignment = new DriverAssignment();
-        driverAssignment.LoadAvailableDrivers();
-
         Scanner scanner = new Scanner(System.in);
         String continueChoice;
 
         do {
             System.out.println("\nADOM LOGISTICS FLEET MANAGEMENT SYSTEM");
             System.out.println("-----------------------------");
-            System.out.println("1. Get driver info (D00-)");
-            System.out.println("2. Get vehicle info");
-            System.out.println("3. Track orders");
-            System.out.println("4. Assign orders");
-            System.out.println("5. Check reroutes");
-            System.out.println("6. Maintain vehicles");
-            System.out.println("7. Show outliers");
-            System.out.println("8. Exit");
+            System.out.println("1. Display All drivers");
+            System.out.println("2. Get driver info (D00-)");
+            System.out.println("3. Get vehicle info");
+            System.out.println("4. Display vehicles by mileage");
+            System.out.println("5. Display vehicles by type");
+            System.out.println("6. Display orders");
+            System.out.println("7. Track order by Id");
+            System.out.println("8. Assign orders");
+            System.out.println("9. Check reroutes");
+            System.out.println("10. Maintain vehicles");
+            System.out.println("11. Show outliers");
+            System.out.println("12. Data Entry");
+            System.out.println("13. Exit");
 
             String choice = scanner.nextLine();
             //scanner.nextLine();
 
             switch (choice) {
                 case "1":
-                    System.out.println("Enter driver id: ");
-                    String driverId = scanner.nextLine();
-                    Driver driver = new Driver(driverId);
-                    if (driver.getDriverID() == null) {
-                        System.out.println("\n");
-                    } else {
-                        System.out.println("Driver details: " + driver);
-                    }
+                    getAllDriverInfo();
                     break;
-
                 case "2":
-                    System.out.println("Enter vehicle registration number: ");
-                    String vehicleId = scanner.nextLine();
-                    int index = searchByRegistration(vehicles, vehicleId);
-
-                    if (index == -1) {
-                        System.out.println("\nNo vehicle with registration number " + vehicleId);
-                    } else {
-                        System.out.println(vehicles[index]);
-                    }
+                    getDriverInfo(scanner);
                     break;
-
                 case "3":
-                    try {
-                        System.out.println("Enter order id: ");
-                        int orderid = Integer.parseInt(scanner.nextLine());
-
-                        boolean found = false;
-                        for (Order order : orders) {
-                            if (order.getOrderId() == orderid) {
-                                System.out.println("Order id " + order.getOrderId() + " is " + order.getDeliveryStatus());
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            System.out.println("Order ID not found.");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid order ID. Please enter a number.");
-                    }
+                    searchVehicleByRegistration(scanner);
                     break;
                 case "4":
-                    try {
-                        System.out.println("Assign orders");
-                        System.out.print("Enter number of orders to be assigned: ");
-                        int numOrders = Integer.parseInt(scanner.nextLine());
-
-                        for (Order order : orders) {
-                            if (numOrders == 0) break;
-
-                            if (order.getDeliveryStatus().equalsIgnoreCase("IN_TRANSIT")) {
-                                System.out.println("Order " + order.getOrderId() + " is already in transit. Next order....");
-                                continue;
-                            }
-
-                            driverAssignment.assignDriverToOrder(order);
-                            //System.out.println("Order " + order.getOrderId() + " assigned successfully.");
-                            numOrders--;
-                        }
-
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid number. Please enter a valid integer.");
-                    }
+                    organizeVehiclesByMileage();
                     break;
                 case "5":
-                    try {
-                        System.out.println("Check for order reroutes");
-//                        for (Order o : orders) {
-//                            o.setDeliveryStatus("Stuck");
-//                        }
-                        deliveryReroute.rerouteDeliveries(orders, vehicles);
-                        for (Order o : orders) {
-                            System.out.println(o.getDeliveryStatus());
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Error rerouting deliveries: " + e.getMessage());
-                    }
+                    organizeVehiclesByType();
                     break;
                 case "6":
-                    try {
-                        maintenanceScheduler.loadFromVehicleList(vehicles);
-                        for (Vehicle v : vehicles) {
-                            System.out.println(v);
-                        }
-
-                        System.out.println("Maintain vehicles");
-                        System.out.print("Enter number of vehicles: ");
-                        int n = Integer.parseInt(scanner.nextLine());
-
-                        System.out.print("Enter mechanic to fix vehicles at: ");
-                        String mech = scanner.nextLine();
-
-                        System.out.print("Enter cost to fix all vehicles: ");
-                        float cost = Float.parseFloat(scanner.nextLine());
-
-                        Vehicle[] toMaintain = maintenanceScheduler.getNextVehiclesForService(n);
-                        maintenanceScheduler.markAsServiced(toMaintain, mech, cost);
-
-                        for (Vehicle v : vehicles) {
-                            System.out.println(v);
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid number or cost. Please try again.");
-                    } catch (Exception e) {
-                        System.out.println("An error occurred during maintenance: " + e.getMessage());
-                    }
+                    displayAllOrders();
                     break;
-
                 case "7":
-                    try {
-                        System.out.println("Show outliers");
-                        float[] vehicleFuelUsage = new float[vehicles.length];
-                        for (int i = 0; i < vehicles.length; i++) {
-                            vehicleFuelUsage[i] = vehicles[i].calculateAverageFuelConsumption();
-                        }
-
-                        float totalFuel = 0;
-                        for (float fuel : vehicleFuelUsage) {
-                            totalFuel += fuel;
-                        }
-
-                        float averageFuel = totalFuel / vehicles.length;
-                        System.out.printf("These vehicles have fuel usage above %.2f:\n", averageFuel);
-
-                        for (int i = 0; i < vehicleFuelUsage.length; i++) {
-                            if (vehicleFuelUsage[i] > averageFuel) {
-                                System.out.println(vehicles[i].getRegistrationNumber() + " - " + vehicleFuelUsage[i]);
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Error calculating outliers: " + e.getMessage());
-                    }
+                    trackOrderById(scanner);
                     break;
-
                 case "8":
+                    assignOrders(scanner);
+                    break;
+                case "9":
+                   reRoutes(scanner);
+                    break;
+                case "10":
+                    maintainVehicles(scanner);
+                    break;
+                case "11":
+                    displayOutliers(scanner);
+                    break;
+                case "12":
+                    runDataEntry();
+                case "13":
                     System.out.println("\nExiting program...\nSEE YOU SOON");
                     System.out.println("----------------------------------------");
                     System.out.println("ADOM LOGISTICS FLEET MANAGEMENT SYSTEM");

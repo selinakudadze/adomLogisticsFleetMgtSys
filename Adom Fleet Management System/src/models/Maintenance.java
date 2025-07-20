@@ -35,6 +35,7 @@ public class Maintenance {
         this.dateOfLastRepairs = null;
         this.lastMechanicShop = null;
         this.daysSinceLastRepairs = 0;
+        this.partsNeedingRepairs = new PriorityQueue<>();
     }
 
     public void addPartRepaired(String partName, float cost) {
@@ -96,7 +97,8 @@ public class Maintenance {
     }
 
     public String getUrgentPartNeedingRepairs(){
-        if(this.partsNeedingRepairs.peek() != null){
+        if(
+                this.partsNeedingRepairs.peek() != null){
             return this.partsNeedingRepairs.peek().getValue();
         }
         return "None";
