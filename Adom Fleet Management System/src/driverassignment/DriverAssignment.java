@@ -2,6 +2,7 @@
  package driverassignment;
 
 
+ import datastructures.HashMap;
  import datastructures.Queue;
  import datastructures.Node;
  import models.Driver;
@@ -16,7 +17,8 @@
  public class DriverAssignment {
      Queue<Driver> driverQueue=new Queue<>();
      static LinkedList<String> AllDriversID=new LinkedList<String>();
-     static Queue<Driver> allDrivers=new Queue<>();
+     static LinkedList<Driver> allDrivers=new LinkedList<>();
+     static HashMap<String,Driver> driverHashMap=new HashMap<>();//used to retrieve just a single driver based on driverId
      Queue<Driver> assignedDriversQueue=new Queue<>();
 
      public void LoadAvailableDrivers(){
@@ -39,7 +41,8 @@
                  }
 
                  Driver driver = new Driver(fields[0],fields[1],fields[2],fields[3],fields[4],experience);
-                 allDrivers.enqueue(driver);
+                 allDrivers.add(driver);
+                 driverHashMap.put(fields[0],driver);
                  if (fields[3].equals("ON_DUTY")) {
                      driverQueue.enqueue(driver);
                  }
@@ -62,8 +65,13 @@
      }
 
      //this method returns a queue all drivers
-     public static Queue<Driver> getAllDrivers(){
+     public static LinkedList<Driver> getAllDrivers(){
          return allDrivers;
+     }
+
+     //this method returns a hashMap of drivers. This will be used to retrieve a single driver
+     public static HashMap<String,Driver> getDriverHashMap(){
+         return driverHashMap;
      }
 
      public void assignDriverToOrder(Order order){
