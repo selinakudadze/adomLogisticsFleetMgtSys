@@ -18,4 +18,5 @@ D017;Kojo Antwi;Class C;OFF_DUTY;Dansoman;Lapaz,La,Ashaiman,Cape Coast
 D018;Abena Asare;Class B;ON_DUTY;Lapaz;Adenta,Kumasi,Wa
 D019;Michael Darko;Class A;OFF_DUTY;Adenta;Circle,Kaneshie,Spintex
 D020;Grace Nyarko;Class C;ON_DUTY;Airport;Osu,Atomic,Legon,Cape Coast
-
+D021;Marcus Rashford;C;ON_DUTY;East Legon;East Legon,Dome,Haatso
+D022;Kobbie Mainoo;C;ON_DUTY;Ho;Ho,Kwabenya,Taifa

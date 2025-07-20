@@ -15,6 +15,7 @@ import driverassignment.DriverAssignment;
 
 import java.util.Scanner;
 
+import static Read_Write_To_Databases.AddToDatabases.runDataEntry;
 import static sort_and_search.BinarySearch.searchByRegistration;
 
 public class Main {
@@ -79,7 +80,8 @@ public class Main {
             System.out.println("8. Check reroutes");
             System.out.println("9. Maintain vehicles");
             System.out.println("10. Show outliers");
-            System.out.println("11. Exit");
+            System.out.println("11. Data Entry");
+            System.out.println("12. Exit");
 
             String choice = scanner.nextLine();
             //scanner.nextLine();
@@ -248,9 +250,6 @@ public class Main {
                         System.out.println("This is the standard deviation: "+standardDeviation);
 
 
-
-                        //System.out.println("These vehicles have fuel usage up to "+n+" standard deviations from "+ averageFuel+"\n");
-
                         for (int i = 0; i < vehicleFuelUsage.length; i++) {
                             if (Math.abs(vehicleFuelUsage[i]-averageFuel)>n*standardDeviation) {
                                 System.out.println(vehicles[i].getRegistrationNumber() + " - " + vehicleFuelUsage[i]);
@@ -267,8 +266,10 @@ public class Main {
                         System.out.println("Error calculating outliers: " + e.getMessage());
                     }
                     break;
-
                 case "11":
+                    runDataEntry();
+
+                case "12":
                     System.out.println("\nExiting program...\nSEE YOU SOON");
                     System.out.println("----------------------------------------");
                     System.out.println("ADOM LOGISTICS FLEET MANAGEMENT SYSTEM");

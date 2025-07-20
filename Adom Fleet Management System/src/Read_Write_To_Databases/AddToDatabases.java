@@ -10,7 +10,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static driverassignment.DriverAssignment.getAllDriversID;
+
 public class AddToDatabases {
+    static LinkedList<String> allDriversID=getAllDriversID();
 
     // Reusable method to write a single line to any file
     public static void writeLine(String fileName, String line) {
@@ -45,7 +48,7 @@ public class AddToDatabases {
 
             // Determine removal logic based on file type
             switch (fileName) {
-                case "src/dummyTextFiles/Drivers.txt":
+                case "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt":
                     if (!criterionType.equals("driverID")) {
                         System.out.println("Invalid criterion for Drivers.txt. Use driverID.");
                         return;
@@ -64,7 +67,7 @@ public class AddToDatabases {
                     lines = tempDrivers;
                     break;
 
-                case "src/dummyTextFiles/Vehicles.txt":
+                case "Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt":
                     if (!criterionType.equals("vehicleID")) {
                         System.out.println("Invalid criterion for Vehicles.txt. Use vehicleID.");
                         return;
@@ -194,7 +197,8 @@ public class AddToDatabases {
                 switch (choice) {
                     case 1:
                         label = "Driver";
-                        filePath = "src/dummyTextFiles/Drivers.txt";
+                       //filePath = "src/dummyTextFiles/Drivers.txt";
+                        filePath = "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt";//different filepath depending on your machine
                         fields = new String[]{
                                 "Driver ID", "Driver Name", "License Type (Class A/B/C/D)",
                                 "Availability (ON_DUTY/OFF_DUTY)", "Current Location", "Experience (comma-separated)"
@@ -203,7 +207,7 @@ public class AddToDatabases {
 
                     case 2:
                         label = "Vehicle";
-                        filePath = "src/dummyTextFiles/Vehicles.txt";
+                        filePath = "Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt";
                         fields = new String[]{
                                 "Vehicle ID", "Registration Number", "Vehicle Type",
                                 "Mileage", "Fuel Use", "Current Longitude", "Current Latitude",
@@ -250,7 +254,7 @@ public class AddToDatabases {
                         switch (removeChoice) {
                             case 1:
                                 criterionType = "driverID";
-                                filePathRemove = "src/dummyTextFiles/Drivers.txt";
+                                filePathRemove = "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt";
                                 System.out.print("Enter Driver ID to remove: ");
                                 break;
                             case 2:
@@ -270,7 +274,7 @@ public class AddToDatabases {
 
                         String criterionValue = scanner.nextLine().trim();
                         if (removeChoice == 2) {
-                            removeData("src/dummyTextFiles/Vehicles.txt", criterionType, criterionValue);
+                            removeData("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt", criterionType, criterionValue);
 //                            removeData("src/dummyTextFiles/Deliveries.txt", criterionType, criterionValue);
 //                            removeData("src/dummyTextFiles/Maintenance.txt", criterionType, criterionValue);
                         } else {
@@ -289,7 +293,39 @@ public class AddToDatabases {
 
                 for (int i = 0; i < fields.length; i++) {
                     System.out.print(fields[i] + ": ");
-                    values[i] = scanner.nextLine().trim();
+                    String nextValue = scanner.nextLine().trim();
+
+                    String driverId=nextValue;//not necessary, just for convenience
+                    if(fields[i].equals("Driver ID")) {
+
+                        //check the validity of the driver id for data integrity
+
+                        while (!driverId.matches("D\\d+")) {
+                            System.out.println(driverId + " is not a valid driver id.\nEnter a valid driver id:");
+//                        scanner.nextLine();
+                            driverId = scanner.nextLine().trim();
+
+                            if (allDriversID.search(driverId)) {
+                                System.out.println("Driver ID already exists.\nEnter another Driver ID: ");
+                                driverId = scanner.nextLine().trim();
+                            }
+                        }
+
+
+                        //If the format of driverID is correct but the driverID is already being used, go through this next step
+                        while (allDriversID.search(driverId)) {
+                            System.out.println("Driver ID already exists.\nEnter another Driver ID: ");
+                            driverId = scanner.nextLine().trim();
+
+                            if (!driverId.startsWith("DA")) {
+                                System.out.println("Driver ID already exists.\nEnter correct Driver ID (D---): ");
+                                driverId = scanner.nextLine().trim();
+                            }
+
+                        }
+                    }
+                    values[i] = driverId;
+
                 }
 
                 // Join values using ';' separator
