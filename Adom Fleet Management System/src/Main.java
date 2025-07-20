@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 import static Read_Write_To_Databases.AddToDatabases.runDataEntry;
 import static sort_and_search.BinarySearch.searchByRegistration;
+import static utils.MainClassReader.*;
 
 public class Main {
 
@@ -50,7 +51,7 @@ public class Main {
 
         VehicleReader vehicleReader = new VehicleReader("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
         Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
-        //System.out.println("test vehicle :"+vehicles[0].getRegistrationNumber());
+        System.out.println("reg num of last vehicle:"+ vehicles[4].getRegistrationNumber());
         MaintenanceReader maintenanceReader = new MaintenanceReader("Adom Fleet Management System/src/dummyTextFiles/Maintenance.txt");
         HashMap<Integer, Maintenance> maintenances = maintenanceReader.readMaintenancesFromFile();
         // add each vehicle's maintenance info
@@ -88,109 +89,30 @@ public class Main {
 
             switch (choice) {
                 case "1":
-                    System.out.println("Enter driver id: ");
-                    String driverId = scanner.nextLine();
-                    Driver driver = new Driver(driverId);
-                    if (driver.getDriverID() == null) {
-                        System.out.println("\n");
-                    } else {
-                        System.out.println("Driver details: " + driver);
-                    }
+                    getDriverInfo(scanner);
                     break;
 
                 case "2":
-                    System.out.println("Enter vehicle registration number: ");
-                    String vehicleId = scanner.nextLine();
-                    int index = searchByRegistration(vehicles, vehicleId);
-
-                    if (index == -1) {
-                        System.out.println("\nNo vehicle with registration number " + vehicleId);
-                    } else {
-                        System.out.println(vehicles[index]);
-                    }
+                    searchVehicleByRegistration(scanner);
                     break;
 
                 case "3":
-                    System.out.println("Organized vehicles by Mileage:");
-                    for (Vehicle vehicle : sortedVehiclesMileage) {
-                        System.out.println(vehicle.toString());
-                    }
+                    organizeVehiclesByMileage();
                     break;
                 case "4":
-                    System.out.println("Organized vehicles by type:");
-                    for (Vehicle vehicle : sortedVehiclesType) {
-                        System.out.println(vehicle.toString());
-                    }
+                    organizeVehiclesByType();
                     break;
                 case "5":
-                    orderTracker.printAllOrders();
-
-//                    try {
-//                        System.out.println("Enter order id: ");
-//                        int orderid = Integer.parseInt(scanner.nextLine());
-//
-//                        boolean found = false;
-//                        for (Order order : orders) {
-//                            if (order.getOrderId() == orderid) {
-//                                System.out.println("Order id " + order.getOrderId() + " is " + order.getDeliveryStatus());
-//                                found = true;
-//                                break;
-//                            }
-//                        }
-//                        if (!found) {
-//                            System.out.println("Order ID not found.");
-//                        }
-//                    } catch (NumberFormatException e) {
-//                        System.out.println("Invalid order ID. Please enter a number.");
-//                    }
+                    displayAllOrders();
                     break;
                 case "6":
-                    try {
-                        System.out.println("Enter order id: ");
-                        int orderid = Integer.parseInt(scanner.nextLine());
-
-                        System.out.println(orderTracker.getOrder(orderid));
-                    }catch (NumberFormatException e) {
-                        System.out.println("Invalid order ID. Please enter a number.");
-                    }
+                    trackOrderById(scanner);
                     break;
                 case "7":
-                    try {
-                        System.out.println("Assign orders");
-                        System.out.print("Enter number of orders to be assigned: ");
-                        int numOrders = Integer.parseInt(scanner.nextLine());
-
-                        for (int j=0;j<numOrders;j++) {
-                            if (numOrders == 0 || numOrders>ordersList.size()) break;
-                            Order order=ordersList.get(j);
-
-                            if (order.getDeliveryStatus().equalsIgnoreCase("IN_TRANSIT")) {
-                                System.out.println("Order " + order.getOrderId() + " is already in transit. Next order....");
-                                continue;
-                            }
-
-                            driverAssignment.assignDriverToOrder(order);
-                            //System.out.println("Order " + order.getOrderId() + " assigned successfully.");
-
-                        }
-
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid number. Please enter a valid integer.");
-                    }
+                    assignOrders(scanner);
                     break;
                 case "8":
-                    try {
-                        System.out.println("Check for order reroutes");
-//                        for (Order o : orders) {
-//                            o.setDeliveryStatus("Stuck");
-//                        }
-                        deliveryReroute.rerouteDeliveries(orders, vehicles);
-                        for (Order o : orders) {
-                            System.out.println(o.getDeliveryStatus());
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Error rerouting deliveries: " + e.getMessage());
-                    }
+                   reRoutes(scanner);
                     break;
                 case "9":
                     try {
@@ -220,55 +142,13 @@ public class Main {
                     } catch (Exception e) {
                         System.out.println("An error occurred during maintenance: " + e.getMessage());
                     }
+
                     break;
-
                 case "10":
-                    try {
-                        System.out.println("Show outliers");
-                        System.out.println("\nEnter number of standard deviations: ");
-                        int n=Integer.parseInt(scanner.nextLine());
-
-                        int numOutlierVehicles=0;
-
-                        float[] vehicleFuelUsage = new float[vehicles.length];
-                        float totalFuel = 0;
-
-                        for (int i = 0; i < vehicles.length; i++) {
-                            vehicleFuelUsage[i] = vehicles[i].calculateAverageFuelConsumption();
-                            totalFuel += vehicleFuelUsage[i];
-                        }
-                        //calculating the aveareg fuel consumption
-                        float averageFuel = totalFuel / vehicles.length;
-                        float variance=0;
-
-                        //for variance
-                        for (float fuel : vehicleFuelUsage) {
-                            float varFuel=fuel-averageFuel;
-                            variance+=varFuel*varFuel;
-                        }
-                        float standardDeviation = (float) Math.sqrt(variance/vehicles.length);
-                        System.out.println("This is the standard deviation: "+standardDeviation);
-
-
-                        for (int i = 0; i < vehicleFuelUsage.length; i++) {
-                            if (Math.abs(vehicleFuelUsage[i]-averageFuel)>n*standardDeviation) {
-                                System.out.println(vehicles[i].getRegistrationNumber() + " - " + vehicleFuelUsage[i]);
-                                numOutlierVehicles++;
-                            }
-                        }
-                        if (numOutlierVehicles==0) {
-                            System.out.println("No vehicles outliers above "+n+" standard deviations from "+ averageFuel+"\n");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid number. Please try again.");
-                    }
-                    catch (Exception e) {
-                        System.out.println("Error calculating outliers: " + e.getMessage());
-                    }
+                    displayOutliers(scanner);
                     break;
                 case "11":
                     runDataEntry();
-
                 case "12":
                     System.out.println("\nExiting program...\nSEE YOU SOON");
                     System.out.println("----------------------------------------");

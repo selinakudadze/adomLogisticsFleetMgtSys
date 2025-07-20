@@ -295,36 +295,62 @@ public class AddToDatabases {
                     System.out.print(fields[i] + ": ");
                     String nextValue = scanner.nextLine().trim();
 
-                    String driverId=nextValue;//not necessary, just for convenience
+                  //check the validity of the driver id for data integrity
                     if(fields[i].equals("Driver ID")) {
-
-                        //check the validity of the driver id for data integrity
-
-                        while (!driverId.matches("D\\d+")) {
-                            System.out.println(driverId + " is not a valid driver id.\nEnter a valid driver id:");
+                        while (!nextValue.matches("D\\d+")) {
+                            System.out.println(nextValue + " is not a valid driver id.\nEnter a valid driver id:");
 //                        scanner.nextLine();
-                            driverId = scanner.nextLine().trim();
+                            nextValue = scanner.nextLine().trim();
 
-                            if (allDriversID.search(driverId)) {
+                            if (allDriversID.search(nextValue)) {
                                 System.out.println("Driver ID already exists.\nEnter another Driver ID: ");
-                                driverId = scanner.nextLine().trim();
+                                nextValue = scanner.nextLine().trim();
                             }
                         }
 
 
                         //If the format of driverID is correct but the driverID is already being used, go through this next step
-                        while (allDriversID.search(driverId)) {
+                        while (allDriversID.search(nextValue)) {
                             System.out.println("Driver ID already exists.\nEnter another Driver ID: ");
-                            driverId = scanner.nextLine().trim();
+                            nextValue = scanner.nextLine().trim();
 
-                            if (!driverId.startsWith("DA")) {
+                            if (!nextValue.startsWith("DA")) {
                                 System.out.println("Driver ID already exists.\nEnter correct Driver ID (D---): ");
-                                driverId = scanner.nextLine().trim();
+                                nextValue = scanner.nextLine().trim();
                             }
 
                         }
                     }
-                    values[i] = driverId;
+
+                    //same test for integrity but for vehicles
+                    //check the validity of the driver id for data integrity
+                    if(fields[i].equals("Driver ID")) {
+                        while (!nextValue.matches("D\\d+")) {
+                            System.out.println(nextValue + " is not a valid driver id.\nEnter a valid driver id:");
+//                        scanner.nextLine();
+                            nextValue = scanner.nextLine().trim();
+
+                            if (allDriversID.search(nextValue)) {
+                                System.out.println("Driver ID already exists.\nEnter another Driver ID: ");
+                                nextValue = scanner.nextLine().trim();
+                            }
+                        }
+
+
+                        //If the format of driverID is correct but the driverID is already being used, go through this next step
+                        while (allDriversID.search(nextValue)) {
+                            System.out.println("Driver ID already exists.\nEnter another Driver ID: ");
+                            nextValue = scanner.nextLine().trim();
+
+                            if (!nextValue.startsWith("DA")) {
+                                System.out.println("Driver ID already exists.\nEnter correct Driver ID (D---): ");
+                                nextValue = scanner.nextLine().trim();
+                            }
+
+                        }
+                    }
+
+                    values[i] = nextValue;
 
                 }
 

@@ -19,4 +19,5 @@ D018;Abena Asare;Class B;ON_DUTY;Lapaz;Adenta,Kumasi,Wa
 D019;Michael Darko;Class A;OFF_DUTY;Adenta;Circle,Kaneshie,Spintex
 D020;Grace Nyarko;Class C;ON_DUTY;Airport;Osu,Atomic,Legon,Cape Coast
 D021;Marcus Rashford;C;ON_DUTY;East Legon;East Legon,Dome,Haatso
-007;gigi hadid;A;OFF_DUTY;La;La,East Legon
+D022;Kobbie Mainoo;C;ON_DUTY;Ho;Ho,Kwabenya,Taifa
+D023;Buddy Rogers;D;OFF_DUTY;Ho;Haatso,Atomic,Accra
