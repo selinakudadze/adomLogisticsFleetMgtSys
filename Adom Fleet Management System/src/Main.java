@@ -23,8 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
        //using orderTracking to track an order and display all current orders
-        OrderTracker orderTracker = new OrderTracker();
-        orderTracker.loadOrdersFromFile("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+
 
         //using the Binary search tree to display vehicles by type or mileage
         DriverToVehicleAssignment vehicleAssignemnt = new DriverToVehicleAssignment();
@@ -45,7 +44,11 @@ public class Main {
 
 
         OrderReader orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
-        Order[] orders = orderReader.readOrdersFromFile();
+        Order[] orders = orderReader.readOrdersFromFile(
+        );
+
+        OrderTracker orderTracker = new OrderTracker(orderReader);
+        orderTracker.loadOrdersAndHashMap();
 
         LinkedList<Order> ordersList=orderReader.getOrdersList();//returns a LinkedList of orders
 

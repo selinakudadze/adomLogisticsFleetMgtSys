@@ -10,7 +10,7 @@ vehicleId;registrationNumber;vehicleType;mileage;fuelUsage;currentLong;currentLa
 9;GH-2222-I;Truck;20000;9.1;1.045;2.015;Afia;40
 10;GH-3333-J;Van;8500;5.8;1.055;2.020;Yaw;18
 11;GH-4444-K;Truck;16000;8.2;1.065;2.025;Esi;28
-12;GH-5555-L;Van;10000;6.3;1.075;2.030;Abena;33  
+12;GH-5555-L;Van;10000;6.3;1.075;2.030;Abena;33
 13;GH-6666-M;Truck;23000;8.9;1.085;2.035;Kwesi;55
 14;GH-7777-N;Van;9700;6.1;1.095;2.040;Nana;38
 15;GH-8888-O;Truck;19000;8.4;1.105;2.045;Akua;22

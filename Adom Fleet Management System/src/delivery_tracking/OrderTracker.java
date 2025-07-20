@@ -8,12 +8,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import models.Order;
+import utils.OrderReader;
 
 public class OrderTracker {
     private HashMap<Integer, Order> orderMap;
+    OrderReader orderReader;
 
-    public OrderTracker() {
-        orderMap = new HashMap<>();
+    public OrderTracker(OrderReader orderReader) {
+        this.orderMap = new HashMap<>();
+        this.orderReader = orderReader;
     }
 
     public void addOrder(Order order) {
@@ -63,49 +66,53 @@ public class OrderTracker {
 
     }
 
-    public void loadOrdersFromFile(String fileName) {
-    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-        String line;
-        reader.readLine(); // Skip header
-
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
-        while ((line = reader.readLine()) != null) {
-            if (line.trim().isEmpty()) continue; // ✅ Skip empty lines
-
-            String[] fields = line.split(",");
-
-            if (fields.length < 9) {
-                System.err.println("Skipping invalid line: " + line);
-                continue;
-            }
-
-            try {
-                int orderId = Integer.parseInt(fields[0].trim());
-                String clientName = fields[1].trim();
-                String origin = fields[2].trim();
-                String destination = fields[3].trim();
-                LocalDateTime scheduledDateTime = LocalDateTime.parse(fields[4].trim(), formatter);
-                double originLat = Double.parseDouble(fields[5].trim());
-                double originLon = Double.parseDouble(fields[6].trim());
-                double destLat = Double.parseDouble(fields[7].trim());
-                double destLon = Double.parseDouble(fields[8].trim());
-
-                Order order = new Order(orderId, clientName, origin, destination, scheduledDateTime,
-                        originLat, originLon, destLat, destLon);
-
-                addOrder(order);
-            } catch (NumberFormatException | DateTimeParseException e) {
-                System.err.println("Skipping malformed line: " + line);
-            }
-        }
-
-        System.out.println("Orders loaded successfully.");
-    } catch (IOException e) {
-        System.err.println("Error reading file: " + e.getMessage());
+    public void loadOrdersAndHashMap(){
+        orderMap=orderReader.getOrderHashMap();
     }
 
-    }
+//    public void loadOrdersFromFile(String fileName) {
+//    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+//        String line;
+//        reader.readLine(); // Skip header
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+//
+//        while ((line = reader.readLine()) != null) {
+//            if (line.trim().isEmpty()) continue; // ✅ Skip empty lines
+//
+//            String[] fields = line.split(",");
+//
+//            if (fields.length < 9) {
+//                System.err.println("Skipping invalid line: " + line);
+//                continue;
+//            }
+//
+//            try {
+//                int orderId = Integer.parseInt(fields[0].trim());
+//                String clientName = fields[1].trim();
+//                String origin = fields[2].trim();
+//                String destination = fields[3].trim();
+//                LocalDateTime scheduledDateTime = LocalDateTime.parse(fields[4].trim(), formatter);
+//                double originLat = Double.parseDouble(fields[5].trim());
+//                double originLon = Double.parseDouble(fields[6].trim());
+//                double destLat = Double.parseDouble(fields[7].trim());
+//                double destLon = Double.parseDouble(fields[8].trim());
+//
+//                Order order = new Order(orderId, clientName, origin, destination, scheduledDateTime,
+//                        originLat, originLon, destLat, destLon);
+//
+//                addOrder(order);
+//            } catch (NumberFormatException | DateTimeParseException e) {
+//                System.err.println("Skipping malformed line: " + line);
+//            }
+//        }
+//
+//        System.out.println("Orders loaded successfully.");
+//    } catch (IOException e) {
+//        System.err.println("Error reading file: " + e.getMessage());
+//    }
+//
+//    }
 
 }
 

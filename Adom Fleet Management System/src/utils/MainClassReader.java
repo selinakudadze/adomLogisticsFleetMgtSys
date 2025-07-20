@@ -16,6 +16,9 @@ import static sort_and_search.BinarySearch.searchByRegistration;
 
 public class MainClassReader {
 
+    static OrderReader orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+    static Order[] orders = orderReader.readOrdersFromFile();
+
     //
     static boolean vehiclesloaded = false;
 
@@ -29,14 +32,13 @@ public class MainClassReader {
 
 
     //using orderTracking to track an order and display all current orders
-    static OrderTracker orderTracker = new OrderTracker();
+    static OrderTracker orderTracker = new OrderTracker(orderReader);
     static boolean ordersLoaded = false;
 
     static DriverAssignment driverAssignment = new DriverAssignment();
     static boolean driversLoaded = false;
 
-    static OrderReader orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
-    static Order[] orders = orderReader.readOrdersFromFile();
+
 
     static LinkedList<Order> ordersList = orderReader.getOrdersList();//returns a LinkedList of orders
 
@@ -106,7 +108,7 @@ public class MainClassReader {
 
     public static void loadOrders() {
         if (!ordersLoaded) {
-            orderTracker.loadOrdersFromFile("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+            orderTracker.loadOrdersAndHashMap();
             ordersLoaded = true;
         }
 
@@ -155,7 +157,7 @@ public class MainClassReader {
                 }
 
                 driverAssignment.assignDriverToOrder(order);
-                orders[j] = order;
+//                orders[j] = order;
                 //System.out.println("Order " + order.getOrderId() + " assigned successfully.");
 
             }
