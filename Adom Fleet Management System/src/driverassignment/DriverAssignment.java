@@ -16,6 +16,7 @@
  public class DriverAssignment {
      Queue<Driver> driverQueue=new Queue<>();
      static LinkedList<String> AllDriversID=new LinkedList<String>();
+     static Queue<Driver> allDrivers=new Queue<>();
      Queue<Driver> assignedDriversQueue=new Queue<>();
 
      public void LoadAvailableDrivers(){
@@ -29,16 +30,17 @@
                  LinkedList<String> experience=new LinkedList<>();
 
                  AllDriversID.add(fields[0]);
+                 String[] experienceList=fields[5].split(",");
+                 int j=0;
 
-                 if (fields.length >= 6 && fields[3].equals("ON_DUTY")) {
-                     String[] experienceList=fields[5].split(",");
-                     int j=0;
-
-                     while(j<experienceList.length){
+                 while(j<experienceList.length){
                          experience.add(experienceList[j]);
                          j++;
-                     }
-                     Driver driver = new Driver(fields[0],fields[1],fields[2],fields[3],fields[4],experience);
+                 }
+
+                 Driver driver = new Driver(fields[0],fields[1],fields[2],fields[3],fields[4],experience);
+                 allDrivers.enqueue(driver);
+                 if (fields[3].equals("ON_DUTY")) {
                      driverQueue.enqueue(driver);
                  }
              }
@@ -57,6 +59,11 @@
          DriverAssignment driverAssignment=new DriverAssignment();
          driverAssignment.LoadAvailableDrivers();
          return AllDriversID;
+     }
+
+     //this method returns a queue all drivers
+     public static Queue<Driver> getAllDrivers(){
+         return allDrivers;
      }
 
      public void assignDriverToOrder(Order order){
