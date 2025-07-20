@@ -59,7 +59,7 @@ public class MaintenanceScheduler {
             }
             else{
                 String partRepaired = mInfo.getUrgentPartNeedingRepairs();
-                if(partRepaired != null){
+                if(!Objects.equals(partRepaired, "None")){
                     vehicle.updateMaintenanceInfo(partRepaired, 0, dateOfRepairs, cost, mechanicShop);
                 }
                 else{
@@ -70,8 +70,14 @@ public class MaintenanceScheduler {
     }
 
     private boolean shouldFlagForService(Vehicle vehicle) {
-        if(vehicle.getMaintenanceInfo().getUrgentPartNeedingRepairs() != null){
-            return true;
+        Maintenance m = vehicle.getMaintenanceInfo();
+        if(m == null){
+            System.out.println("Vehicle: " + vehicle.getVehicleId() + "has no maintenance info");
+        }
+        else{
+            if(!Objects.equals(m.getUrgentPartNeedingRepairs(), "None")){
+                return true;
+            }
         }
         return vehicle.getMileage() >= 10000 || vehicle.getDaysSinceLastService() >= 90;
     }
