@@ -24,7 +24,7 @@ public class Main {
             System.out.println("9. Check reroutes");
             System.out.println("10. Maintain vehicles");
             System.out.println("11. Show outliers");
-            System.out.println("12. Data Entry");
+            System.out.println("12. Data Entry(Driver or Vehicle)");
             System.out.println("13. Exit");
 
             String choice = scanner.nextLine();
