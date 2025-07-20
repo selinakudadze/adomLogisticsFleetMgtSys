@@ -32,7 +32,7 @@ public class PriorityQueue<T> {
         size++;
     }
 
-    // Remove and return the highest priority vehicle
+    // Remove and return the highest priority item
     public PriorityNode<T> dequeue() {
         PriorityNode<T> curr = this.head.next();
         PriorityNode<T> front = this.head;
