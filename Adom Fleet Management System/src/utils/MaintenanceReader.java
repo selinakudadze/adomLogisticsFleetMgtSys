@@ -40,7 +40,7 @@ public class MaintenanceReader {
                     int vehicleId = Integer.parseInt(fields[0]);
                     int daysSinceLastRepairs = Integer.parseInt(fields[1]);
                     Date dateOfLastRepairs =  !Objects.equals(fields[2], "null") ? new Date(fields[2]) : new Date();
-                    if(n == 6){
+                    if(n == 7){
                         HashMap<String, LinkedList<Float>> vehiclePartsRepaired = new HashMap<>();
                         String[] partsRepaired = fields[3].split(";");
                         String[] costsOfRepairs = fields[4].split(";");
@@ -54,22 +54,44 @@ public class MaintenanceReader {
                             vehiclePartsRepaired.put(partsRepaired[j], currLinkedList);
                         }
                         String mechanicShop = fields[5];
-                        maintenances.put(vehicleId, new Maintenance(
+                        Maintenance maintenance = new Maintenance(
                                 vehicleId,
                                 vehiclePartsRepaired,
                                 daysSinceLastRepairs,
                                 dateOfLastRepairs,
                                 mechanicShop
-                        ));
+                        );
+                        String partsNeedingRepairsStr = fields[6];
+                        if (!partsNeedingRepairsStr.isEmpty()) {
+                            String[] partsNeedingRepairs = partsNeedingRepairsStr.split(";");
+                            for (String partEntry : partsNeedingRepairs) {
+                                String[] partAndPriority = partEntry.split(":");
+                                String partName = partAndPriority[0];
+                                int priority = Integer.parseInt(partAndPriority[1]);
+                                maintenance.addPartNeedingRepairs(partName, priority);
+                            }
+                        }
+                        maintenances.put(vehicleId, maintenance);
                     }
-                    else if(n == 4){
+                    else if(n == 5){
                         String mechanicShop = fields[3];
-                        maintenances.put(vehicleId, new Maintenance(
+                        Maintenance maintenance = new Maintenance(
                                 vehicleId,
                                 daysSinceLastRepairs,
                                 dateOfLastRepairs,
                                 mechanicShop
-                        ));
+                        );
+                        String partsNeedingRepairsStr = fields[4];
+                        if (!partsNeedingRepairsStr.isEmpty()) {
+                            String[] partsNeedingRepairs = partsNeedingRepairsStr.split(";");
+                            for (String partEntry : partsNeedingRepairs) {
+                                String[] partAndPriority = partEntry.split(":");
+                                String partName = partAndPriority[0];
+                                int priority = Integer.parseInt(partAndPriority[1]);
+                                maintenance.addPartNeedingRepairs(partName, priority);
+                            }
+                        }
+                        maintenances.put(vehicleId, maintenance);
                     }
                 } catch (Exception e) {
                     System.err.println("Skipping invalid Maintenance: " + line);

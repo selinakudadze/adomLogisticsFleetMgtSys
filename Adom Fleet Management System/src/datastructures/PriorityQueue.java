@@ -8,7 +8,7 @@ public class PriorityQueue<T> {
 
     public PriorityQueue() {
         this.head = null;
-        int size = 0;
+        this.size = 0;
     }
 
     // Add a node to the priority queue
@@ -17,30 +17,31 @@ public class PriorityQueue<T> {
         if(this.head == null){
             this.head = newNode;
         }
+        else if(this.head.getPriority() >= newNode.getPriority()){
+            newNode.setNext(this.head);
+            this.head = newNode;
+        }
         else{
             PriorityNode<T> curr = this.head;
             PriorityNode<T> prev = null;
-            while(curr != null){
-                if(curr.getPriority() >= newNode.getPriority()){
-                    prev.setNext(newNode);
-                    newNode.setNext(curr);
-                    break;
-                }
+            while(curr != null && curr.getPriority() <= newNode.getPriority()){
+                prev = curr;
                 curr = curr.next();
             }
+            prev.setNext(newNode);
+            newNode.setNext(curr);
         }
         size++;
     }
 
     // Remove and return the highest priority item
     public PriorityNode<T> dequeue() {
+        if(this.head == null){
+            return null;
+        }
         PriorityNode<T> curr = this.head.next();
         PriorityNode<T> front = this.head;
         this.head = curr;
-        while(curr != null){
-            curr.setPriority(curr.getPriority() - 1);
-            curr = curr.next();
-        }
         size--;
         return front;
     }
