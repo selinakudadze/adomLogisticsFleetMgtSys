@@ -1,0 +1,17 @@
+vehicleId;registrationNumber;vehicleType;mileage;fuelUsage;currentLong;currentLat;currentDriver;daysSinceLastService;
+1;GH-1234-A;Truck;15000;8.5;1.001;2.001;Bill;30
+2;GH-5678-B;Van;8000;6.2;1.001;2.001;Joe;15
+3;GH-9012-C;Truck;25000;7.98;2.001;9.8;Dude;60
+4;GH-3456-D;Van;12000;1.001;2.001;5.9;James;45
+5;GH-7890-E;Truck;18000;8.0;1.001;2.001;John;20
+6;GH-2345-F;Van;9500;6.5;1.015;2.003;Kwame;35
+7;GH-6789-G;Truck;22000;8.7;1.020;2.005;Ama;50
+8;GH-1111-H;Van;11000;6.0;1.030;2.010;Kojo;25
+9;GH-2222-I;Truck;20000;9.1;1.045;2.015;Afia;40
+10;GH-3333-J;Van;8500;5.8;1.055;2.020;Yaw;18
+11;GH-4444-K;Truck;16000;8.2;1.065;2.025;Esi;28
+12;GH-5555-L;Van;10000;6.3;1.075;2.030;Abena;33
+13;GH-6666-M;Truck;23000;8.9;1.085;2.035;Kwesi;55
+14;GH-7777-N;Van;9700;6.1;1.095;2.040;Nana;38
+15;GH-8888-O;Truck;19000;8.4;1.105;2.045;Akua;22
+
