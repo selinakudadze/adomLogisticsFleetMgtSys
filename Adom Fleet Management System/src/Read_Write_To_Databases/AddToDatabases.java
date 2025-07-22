@@ -104,7 +104,7 @@ public class AddToDatabases {
 
             // Determine removal logic based on file type
             switch (fileName) {
-                case "src/dummyTextFiles/Drivers.txt":
+                case "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt"://different filepath depending on your machine
                     if (!criterionType.equals("driverID")) {
                         System.out.println("Invalid criterion for Drivers.txt. Use driverID.");
                         return;
@@ -123,7 +123,7 @@ public class AddToDatabases {
                     lines = tempDrivers;
                     break;
 
-                case "src/dummyTextFiles/Vehicles.txt":
+                case "Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt":
                     if (!criterionType.equals("vehicleID")) {
                         System.out.println("Invalid criterion for Vehicles.txt. Use vehicleID.");
                         return;
@@ -255,7 +255,7 @@ public class AddToDatabases {
                     case 1:
                         label = "Driver";
                        //filePath = "src/dummyTextFiles/Drivers.txt";
-                        filePath = "src/dummyTextFiles/Drivers.txt";//different filepath depending on your machine
+                        filePath = "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt";//different filepath depending on your machine
                         fields = new String[]{
                                 "Driver ID", "Driver Name", "License Type (Class A/B/C/D)",
                                 "Availability (ON_DUTY/OFF_DUTY)", "Current Location", "Experience (comma-separated)"
@@ -264,7 +264,7 @@ public class AddToDatabases {
 
                     case 2:
                         label = "Vehicle";
-                        filePath = "src/dummyTextFiles/Vehicles.txt";
+                        filePath = "Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt";
                         fields = new String[]{
                                 "Vehicle ID", "Registration Number", "Vehicle Type",
                                 "Mileage", "Fuel Use", "Current Longitude", "Current Latitude",
@@ -311,7 +311,7 @@ public class AddToDatabases {
                         switch (removeChoice) {
                             case 1:
                                 criterionType = "driverID";
-                                filePathRemove = "src/dummyTextFiles/Drivers.txt";
+                                filePathRemove = "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt";
                                 System.out.print("Enter Driver ID to remove: ");
                                 break;
                             case 2:
@@ -351,18 +351,18 @@ public class AddToDatabases {
 
                         switch (updateChoice) {
                             case 1:
-                                filePath = "src/dummyTextFiles/Drivers.txt";
+                                filePath = "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt";
                                 fields = new String[]{
                                         "New Driver Name",
                                         "New License Type (B/C/D)",
                                         "New Availability (ON_DUTY/OFF_DUTY)",
                                         "New Experience (comma-separated)"
                                 };
-                                System.out.print("Enter Driver ID to update(D00-): ");
+                                System.out.print("Enter Driver ID to update(eg.D001): ");
                                 break;
 
                             case 2:
-                                filePath = "src/dummyTextFiles/Vehicles.txt";
+                                filePath = "Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt";
                                 fields = new String[]{
                                         "New Mileage",
                                         "New Fuel Use",
@@ -389,7 +389,7 @@ public class AddToDatabases {
 
                         updateData(filePath, idToUpdate, newValues);
                         continue;
-                        // === MODIFIED END: Update Case ===
+
 
                     default:
                         System.out.println("Invalid option. Please choose a valid number.");
