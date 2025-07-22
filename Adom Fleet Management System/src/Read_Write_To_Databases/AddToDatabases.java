@@ -27,6 +27,62 @@ public class AddToDatabases {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
+    //Update Data Method
+    public static void updateData(String fileName, String idValue, String[] newValues) {
+        try {
+            File file = new File(fileName);
+            if (!file.exists()) {
+                System.out.println(fileName + " not found.");
+                return;
+            }
+
+            LinkedList<String> lines = new LinkedList<>();
+            boolean updated = false;
+
+            for (String line : Files.readAllLines(Paths.get(fileName))) {
+                String[] fields = line.split(";");
+                if (fields.length > 0 && fields[0].equals(idValue)) {
+                    // === MODIFIED: Preserve ID and uneditable fields ===
+                    if (fileName.contains("Drivers.txt")) {
+                        fields[1] = newValues[0]; // Name
+                        fields[2] = newValues[1]; // License
+                        fields[3] = newValues[2]; // Availability
+                        fields[5] = newValues[3]; // Experience
+                    } else if (fileName.contains("Vehicles.txt")) {
+                        // Skip index 0 (ID), 1 (Registration), 2 (Type)
+                        fields[3] = newValues[0]; // Mileage
+                        fields[4] = newValues[1]; // Fuel Use
+                        fields[5] = newValues[2]; // Longitude
+                        fields[6] = newValues[3]; // Latitude
+                        fields[7] = newValues[4]; // Driver Name
+                        fields[8] = newValues[5]; // Days since last service
+                    }
+
+                    String updatedLine = String.join(";", fields);
+                    lines.add(updatedLine);
+                    updated = true;
+                } else {
+                    lines.add(line);
+                }
+            }
+
+            if (updated) {
+                try (PrintWriter pw = new PrintWriter(fileName)) {
+                    for (Node<String> current = lines.head; current != null; current = current.nextNode) {
+                        pw.println(current.entity);
+                    }
+                }
+                System.out.println("Data updated successfully for ID: " + idValue);
+            } else {
+                System.out.println("No matching ID found for update.");
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error updating data in file: " + e.getMessage());
+        }
+    }
+
+
 
     // Method to remove data from a file based on criteria
     public static void removeData(String fileName, String criterionType, String criterionValue) {
@@ -48,7 +104,7 @@ public class AddToDatabases {
 
             // Determine removal logic based on file type
             switch (fileName) {
-                case "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt":
+                case "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt"://different filepath depending on your machine
                     if (!criterionType.equals("driverID")) {
                         System.out.println("Invalid criterion for Drivers.txt. Use driverID.");
                         return;
@@ -176,6 +232,7 @@ public class AddToDatabases {
                 System.out.println("1. Add Driver");
                 System.out.println("2. Add Vehicle");
                 System.out.println("3. Remove Data");
+                System.out.println("4. Update Data");
                 System.out.print("Choose option: ");
 
                 // System.out.println("3. Add Order");
@@ -281,6 +338,58 @@ public class AddToDatabases {
                             removeData(filePathRemove, criterionType, criterionValue);
                         }
                         continue;
+
+
+
+                        //  Case for Update Data
+                    case 4:
+                        System.out.println("\n=== Update Data ===");
+                        System.out.println("1. Update Driver Info");
+                        System.out.println("2. Update Vehicle Info");
+                        System.out.print("Choose option: ");
+                        int updateChoice = Integer.parseInt(scanner.nextLine().trim());
+
+                        switch (updateChoice) {
+                            case 1:
+                                filePath = "Adom Fleet Management System/src/dummyTextFiles/Drivers.txt";
+                                fields = new String[]{
+                                        "New Driver Name",
+                                        "New License Type (B/C/D)",
+                                        "New Availability (ON_DUTY/OFF_DUTY)",
+                                        "New Experience (comma-separated)"
+                                };
+                                System.out.print("Enter Driver ID to update(eg.D001): ");
+                                break;
+
+                            case 2:
+                                filePath = "Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt";
+                                fields = new String[]{
+                                        "New Mileage",
+                                        "New Fuel Use",
+                                        "New Longitude",
+                                        "New Latitude",
+                                        "New Current Driver Name",
+                                        "New Days Since Last Service"
+                                };
+                                System.out.print("Enter Vehicle ID to update: ");
+                                break;
+
+                            default:
+                                System.out.println("Invalid update option.");
+                                continue;
+                        }
+
+                        String idToUpdate = scanner.nextLine().trim();
+                        String[] newValues = new String[fields.length];
+
+                        for (int i = 0; i < fields.length; i++) {
+                            System.out.print(fields[i] + ": ");
+                            newValues[i] = scanner.nextLine().trim();
+                        }
+
+                        updateData(filePath, idToUpdate, newValues);
+                        continue;
+
 
                     default:
                         System.out.println("Invalid option. Please choose a valid number.");
