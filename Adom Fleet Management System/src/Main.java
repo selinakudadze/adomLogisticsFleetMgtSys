@@ -21,7 +21,7 @@ public class Main {
             System.out.println("6. Display orders");
             System.out.println("7. Track order by Id");
             System.out.println("8. Assign orders");
-            System.out.println("9. Check reroutes");
+            System.out.println("9. Update order status");
             System.out.println("10. Maintain vehicles");
             System.out.println("11. Show outliers");
             System.out.println("12. Data Entry");
@@ -56,7 +56,7 @@ public class Main {
                     assignOrders(scanner);
                     break;
                 case "9":
-                   reRoutes(scanner);
+                    updateOrderStatus(scanner);
                     break;
                 case "10":
                     maintainVehicles(scanner);

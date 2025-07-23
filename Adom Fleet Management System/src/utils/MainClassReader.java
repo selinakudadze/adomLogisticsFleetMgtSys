@@ -3,7 +3,7 @@ package utils;
 import datastructures.BinarySearchTree;
 import datastructures.HashMap;
 import datastructures.LinkedList;
-import delivery_rerouting.DeliveryReroute;
+import delivery_rerouting.DeliveryRerouter;
 import delivery_tracking.OrderTracker;
 import driverassignment.DriverAssignment;
 import driverassignment.DriverToVehicleAssignment;
@@ -22,7 +22,7 @@ import static sort_and_search.BinarySearch.searchByRegistration;
 public class MainClassReader {
 
     //orderReader class is instantiated and all orders are placed into an array of orders
-    static OrderReader orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+    static OrderReader orderReader = new OrderReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
     static Order[] orders = orderReader.readOrdersFromFile();
 
     //used to check if vehicles have already been loaded into the hashMap
@@ -30,7 +30,7 @@ public class MainClassReader {
 
     //vehicle reader
     //VehicleReader class is instantiated and all vehicles are placed into an array of vehicles
-    static VehicleReader vehicleReader = new VehicleReader("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
+    static VehicleReader vehicleReader = new VehicleReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
     static Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
 
 
@@ -56,11 +56,11 @@ public class MainClassReader {
     static LinkedList<Order> ordersList = orderReader.getOrdersList();//returns a LinkedList of orders
 
     //used to simulate delivery rerouting
-    static DeliveryReroute deliveryReroute = new DeliveryReroute();
+    static DeliveryRerouter deliveryRerouter = new DeliveryRerouter();
 
 
     //resources for maintaining vehicles
-    static MaintenanceReader maintenanceReader = new MaintenanceReader("Adom Fleet Management System/src/dummyTextFiles/Maintenance.txt");
+    static MaintenanceReader maintenanceReader = new MaintenanceReader("C:/Users/ADMIN/Desktop/adomLogisticsFleetMgtSys/Adom Fleet Management System/src/dummyTextFiles/Maintenance.txt");
     static HashMap<Integer, Maintenance> maintenances = maintenanceReader.readMaintenancesFromFile();
 
     static MaintenanceScheduler maintenanceScheduler = new MaintenanceScheduler();
@@ -214,21 +214,21 @@ public class MainClassReader {
 
 
     //this method reroutes orders
-    public static void reRoutes(Scanner scanner) {
-        try {
-            System.out.println("Check for order reroutes");
-//                        for (Order o : orders) {
-//                            o.setDeliveryStatus("Stuck");
-//                        }
-            deliveryReroute.rerouteDeliveries(orders, vehicles);
-            for (Order o : orders) {
-                System.out.println(o.getDeliveryStatus());
-            }
-        } catch (Exception e) {
-            System.out.println("Error rerouting deliveries: " + e.getMessage());
-        }
-
-    }
+//    public static void reRoutes(Scanner scanner) {
+//        try {
+//            System.out.println("Check for order reroutes");
+////                        for (Order o : orders) {
+////                            o.setDeliveryStatus("Stuck");
+////                        }
+//            deliveryRerouter.rerouteDeliveries(orders, vehicles);
+//            for (Order o : orders) {
+//                System.out.println(o.getDeliveryStatus());
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Error rerouting deliveries: " + e.getMessage());
+//        }
+//
+//    }
 
 
     //this method displays outliers
@@ -319,5 +319,39 @@ public class MainClassReader {
             System.out.println("An error occurred during maintenance: " + e.getMessage());
         }
 
+    }
+
+    public static void updateOrderStatus(Scanner scanner) {
+        System.out.println("\nADOM LOGISTICS FLEET MANAGEMENT SYSTEM");
+        System.out.println("Enter order ID of the order to be updated");
+        int orderId = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter new order status");
+        System.out.println("1. Delivered");
+        System.out.println("2. Stuck");
+        int newOrderStatus = Integer.parseInt(scanner.nextLine());
+        switch (newOrderStatus) {
+            case 1:
+                try {
+                    orderTracker.updateStatus(orderId, "DELIVERED");
+                    System.out.println("Order status updated successfully to \"DELIVERED\"");
+                } catch (Exception e) {
+                    System.out.println("Order status failed to update");
+                }
+            case 2:
+                try {
+                    orderTracker.updateStatus(orderId, "STUCK");
+                    System.out.println("Order status updated to \"STUCK\"");
+                } catch (Exception e) {
+                    System.out.println("Order status failed to update");
+                }
+                try {
+                    deliveryRerouter.findReroute(orderTracker.getOrder(orderId), vehicles);
+                    System.out.println(orderTracker.getOrder(orderId).toString());
+                    System.out.println("Order rerouted successfully");
+                } catch (Exception e) {
+                    System.out.println("Order not rerouted");
+                }
+
+        }
     }
 }
