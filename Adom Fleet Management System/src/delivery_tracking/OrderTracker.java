@@ -17,6 +17,7 @@ public class OrderTracker {
     public OrderTracker(OrderReader orderReader) {
         this.orderMap = new HashMap<>();
         this.orderReader = orderReader;
+        loadOrdersAndHashMap();
     }
 
     public void addOrder(Order order) {

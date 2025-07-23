@@ -1,8 +1,8 @@
 package delivery_rerouting;
 import models.Order;
 import models.Vehicle;
-public class DeliveryReroute {
-    public DeliveryReroute(){}
+public class DeliveryRerouter {
+    public DeliveryRerouter(){}
 
     public void rerouteDeliveries(Order[] orders, Vehicle[] availVehicles){
         for(Order order: orders){
@@ -36,7 +36,7 @@ public class DeliveryReroute {
         }
 
         order.setAssignedDriver(bestCandidate.getCurrentDriver());
-        order.setDeliveryStatus("REORDERED");
+        order.setDeliveryStatus("REROUTED");
         availVehicles[indexBest] = null;
         return availVehicles;
     }
