@@ -7,14 +7,16 @@ public class Queue<T> {
 
     public Node<T> head;
     public Node<T> tail;
+    int size;
 
 
     public Queue() {
         this.head = null;
         this.tail = null;
+        this.size=0;
     }
 
-    private void enqueue(T entity) {
+    public void enqueue(T entity) {
         Node<T> currentNode = new Node<T>(entity);
 
         //We use the tail to track the current node
@@ -26,9 +28,10 @@ public class Queue<T> {
             this.tail.nextNode = currentNode;
             this.tail = currentNode;
         }
+        size++;
     }
 
-    private Node<T> dequeue() {
+    public Node<T> dequeue() {
         Node<T> currentNode = this.head;
 
         if(currentNode == null){
@@ -38,60 +41,54 @@ public class Queue<T> {
             this.head = this.head.nextNode;
             currentNode.nextNode = null;
         }
+        size--;
         return currentNode;
     }
 
-    private T front() {
-        //Returns the first element in the Queue
+    public T front() {
+        // Returns the first element in the Queue, or null if empty
+        if (this.head == null) {
+            return this.head.entity;
+        }
         return this.head.entity;
     }
 
-    private T back() {
+    public T back() {
         //Returns the last element in the queue
         return this.tail.entity;
     }
 
-    private boolean isEmpty(){
+    public boolean isEmpty(){
         if(this.head == null) return true;
         else return false;
     }
 
-    private int size(){
+    public int size(){
         // This method returns the size of the queue(That is, the number of elements in the queue)
-
-        int size_counter=0;
-        Node<T> currentNode = this.head;
-
-        if(this.head== null) return 0;
-        else{
-            while(true){
-                if(currentNode != null) {
-                    size_counter += 1;
-                    currentNode = currentNode.nextNode;
-                }else break;
-            }
-        }
-        return size_counter;
-
+        return size;
     }
 
-    public static void main(String[] args){
-        Queue<Integer> queue_test=new Queue<Integer>();
-        queue_test.enqueue(0);
-        queue_test.enqueue(2);
-        queue_test.enqueue(4);
-        queue_test.enqueue(6);
-        queue_test.enqueue(8);
-        queue_test.enqueue(10);
-
-        for(int i=0;i<4;i++){
-            System.out.println(queue_test.dequeue().entity+" has been removed");
-        }
-
-        System.out.println("This is the first element "+queue_test.front());
-        System.out.println("This is the last element "+queue_test.back());
-        queue_test.enqueue(-2);
-        System.out.println("Size of the queue is "+queue_test.size());
-        System.out.println(queue_test.isEmpty());
+    public T next(){
+        return head.nextNode.entity;
     }
+
+//    public static void main(String[] args){
+//        Queue<Integer> queue_test=new Queue<Integer>();
+//        queue_test.enqueue(0);
+//        queue_test.enqueue(2);
+//        queue_test.enqueue(4);
+//        queue_test.enqueue(6);
+//        queue_test.enqueue(8);
+//        queue_test.enqueue(10);
+//
+//        for(int i=0;i<4;i++){
+//            System.out.println(queue_test.dequeue().entity+" has been removed");
+//        }
+//
+//        System.out.println("This is the first element "+queue_test.front());
+//        System.out.println("This is the last element "+queue_test.back());
+//        queue_test.enqueue(-2);
+//        System.out.println("Size of the queue is "+queue_test.size());
+//        System.out.println(queue_test.isEmpty());
+//    }
 }

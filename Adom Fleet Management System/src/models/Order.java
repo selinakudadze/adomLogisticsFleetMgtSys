@@ -7,13 +7,18 @@ public class Order {
     private int orderId;
     private String clientName;
     private String assignedDriver;
+    public enum DeliveryStatus{
+        IN_TRANSIT,
+        DELIVERED,
+        REROUTED,
+        STUCK
+    }
     private String origin;
     private String destination;
     private String deliveryStatus;
     private LocalDateTime scheduledDateTime;
     private LocalDateTime pickupTime;
     private LocalDateTime eta;
-
     private double originLatitude;
     private double originLongitude;
     private double destinationLatitude;
@@ -21,16 +26,42 @@ public class Order {
     private double currentLatitude;
     private double currentLongitude;
 
+
+//    public enum DeliveryStatus{
+//        IN_TRANSIT,
+//        DELIVERED,
+//        REROUTED
+//    }
+//    private int orderId;
+//    private String clientName;
+//    private String assignedDriver;
+//    private String origin;
+//    private String destination;
+//    private String deliveryStatus;
+//    private LocalDateTime scheduledDateTime;
+//    private LocalDateTime pickupTime;
+//    private LocalDateTime eta;
+
+    
+//    public Order(int orderId, String clientName, String origin, String destination, LocalDateTime scheduledDateTime) {
+//        this.orderId = orderId;
+//        this.clientName = clientName;
+//        this.origin = origin;
+//        this.destination = destination;
+//        this.scheduledDateTime = scheduledDateTime;
+//        this.deliveryStatus = "Scheduled";
+//    }
+
     public Order(
-        int orderId,
-        String clientName,
-        String origin,
-        String destination,
-        LocalDateTime scheduledDateTime,
-        double originLatitude,
-        double originLongitude,
-        double destinationLatitude,
-        double destinationLongitude
+            int orderId,
+            String clientName,
+            String origin,
+            String destination,
+            LocalDateTime scheduledDateTime,
+            double originLatitude,
+            double originLongitude,
+            double destinationLatitude,
+            double destinationLongitude
     ) {
         this.orderId = orderId;
         this.clientName = clientName;
@@ -38,7 +69,6 @@ public class Order {
         this.destination = destination;
         this.scheduledDateTime = scheduledDateTime;
         this.deliveryStatus = "Scheduled";
-
         this.originLatitude = originLatitude;
         this.originLongitude = originLongitude;
         this.destinationLatitude = destinationLatitude;
@@ -47,8 +77,7 @@ public class Order {
         this.currentLongitude = originLongitude;
     }
 
-    // Getters and setters
-
+    // Getters and setters    
     public int getOrderId() {
         return orderId;
     }
@@ -73,9 +102,7 @@ public class Order {
         return destination;
     }
 
-    public String getDeliveryStatus() {
-        return deliveryStatus;
-    }
+    public String getDeliveryStatus() { return deliveryStatus; }
 
     public void setDeliveryStatus(String deliveryStatus) {
         this.deliveryStatus = deliveryStatus;
@@ -108,6 +135,8 @@ public class Order {
         return Duration.between(scheduledDateTime, pickupTime);
     }
 
+
+
     public double getOriginLatitude() {
         return originLatitude;
     }
@@ -136,15 +165,15 @@ public class Order {
         this.currentLatitude = latitude;
         this.currentLongitude = longitude;
     }
-
+    
     public void assignToDriver(String driverName) {
         this.assignedDriver = driverName;
     }
 
-    public void updateDeliveryStatus(String newStatus) {
-        this.deliveryStatus = newStatus;
-    }
+    public void updateDeliveryStatus(String newStatus) { this.deliveryStatus = newStatus; }
 
+
+  
     @Override
     public String toString() {
         return "Order ID: " + orderId +
@@ -152,11 +181,13 @@ public class Order {
                "\nDriver: " + (assignedDriver != null ? assignedDriver : "Unassigned") +
                "\nOrigin: " + origin + " (" + originLatitude + ", " + originLongitude + ")" +
                "\nDestination: " + destination + " (" + destinationLatitude + ", " + destinationLongitude + ")" +
-               "\nCurrent Location: (" + currentLatitude + ", " + currentLongitude + ")" +
+                "\nCurrent Location: (" + currentLatitude + ", " + currentLongitude + ")" +
                "\nStatus: " + deliveryStatus +
                "\nScheduled: " + scheduledDateTime +
                "\nPickup Time: " + (pickupTime != null ? pickupTime : "N/A") +
                "\nETA: " + (eta != null ? eta : "N/A") +
                "\nWait Time: " + getWaitTime().toMinutes() + " minutes";
     }
+
+
 }

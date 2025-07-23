@@ -1,0 +1,16 @@
+vehicleId,daysSinceLastRepairs,dateOfLastRepairs,vehiclePartsRepaired,costsOfRepairs,mechanicShop
+1,12,null,Brake;Oil,250-300;500-400,QuickFix Garage
+2,15,null,Engine oil,220.00,Total AutoCare
+3,20,null,Transmission fluid,620.00,Speedy Repairs
+4,7,null,Battery;Coolant,270;300,Speedy Repairs
+5,25,null,Brake pads;Timing belt,460;950,Elite Mechanics
+6,10,null,Air filter;Spark plugs,140-60;180,Total AutoCare
+7,5,null,AC Compressor,500.00,Total AutoCare
+8,18,null,Windshield wiper,90.00,QuickFix Garage
+9,30,null,Fuel filter;Oil filter,190;160-100,QuickFix Garage
+10,9,null,Drive belt;Water pump,210;370,Speedy Repairs
+11,13,null,Engine mount;Clutch,610;950,AutoTech Services
+12,21,null,Battery;Brake fluid,280;200,Speedy Repairs
+13,11,null,Coolant,300.00,MegaFix Ltd
+14,17,null,Oil filter;Engine oil,160;220,Total AutoCare
+15,8,null,Brake pads,450.00,QuickFix Garage

@@ -20,13 +20,13 @@ public class BinarySearch {
                 right = mid - 1;
             }
         }
-        return -1; // Vehicle not found
+        return -1; // Vehicles.txt not found
     }
 
-    // Placeholder method to get registration number (assumed in Vehicle class)
+    // Placeholder method to get registration number (assumed in Vehicles.txt class)
     private static String getRegistrationNumber(Vehicle vehicle) {
-        return vehicle.getRegistrationNumber(); // Assumes Vehicle has this getter
+        return vehicle.getRegistrationNumber(); // Assumes Vehicles.txt has this getter
     }
 }
 
-// Placeholder Vehicle class with necessary method (to be integrated with models.Vehicle)
+// Placeholder Vehicles.txt class with necessary method (to be integrated with models.Vehicles.txt)
