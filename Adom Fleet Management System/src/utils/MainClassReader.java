@@ -22,7 +22,7 @@ import static sort_and_search.BinarySearch.searchByRegistration;
 public class MainClassReader {
 
     //orderReader class is instantiated and all orders are placed into an array of orders
-    static OrderReader orderReader = new OrderReader("Adom Fleet Management System/src/dummyTextFiles/Deliveries.txt");
+    static OrderReader orderReader = new OrderReader("./src/dummyTextFiles/Deliveries.txt");
     static Order[] orders = orderReader.readOrdersFromFile();
 
     //used to check if vehicles have already been loaded into the hashMap
@@ -30,13 +30,13 @@ public class MainClassReader {
 
     //vehicle reader
     //VehicleReader class is instantiated and all vehicles are placed into an array of vehicles
-    static VehicleReader vehicleReader = new VehicleReader("Adom Fleet Management System/src/dummyTextFiles/Vehicles.txt");
+    static VehicleReader vehicleReader = new VehicleReader("./src/dummyTextFiles/Vehicles.txt");
     static Vehicle[] vehicles = vehicleReader.readVehiclesFromFile();
 
 
     //using the Binary search tree to display vehicles by type and mileage. This is used in the functions organizeVehiclesByType and
     //organizeVehiclesByMileage
-    static DriverToVehicleAssignment vehicleAssignemnt = new DriverToVehicleAssignment();
+    static DriverToVehicleAssignment vehicleAssignment = new DriverToVehicleAssignment();
 
 
     //using orderTracking to track an order and display all current orders
@@ -60,7 +60,7 @@ public class MainClassReader {
 
 
     //resources for maintaining vehicles
-    static MaintenanceReader maintenanceReader = new MaintenanceReader("Adom Fleet Management System/src/dummyTextFiles/Maintenance.txt");
+    static MaintenanceReader maintenanceReader = new MaintenanceReader("./src/dummyTextFiles/Maintenance.txt");
     static HashMap<Integer, Maintenance> maintenances = maintenanceReader.readMaintenancesFromFile();
 
     static MaintenanceScheduler maintenanceScheduler = new MaintenanceScheduler();
@@ -83,7 +83,7 @@ public class MainClassReader {
         String driverId = scanner.nextLine();
         Driver driver=driversHashMap.get(driverId);
         if (driver.getDriverID() == null) {
-            System.out.println("\n");
+            System.out.println("Driver not found for ID: " + driverId);
         } else {
             System.out.println("Driver details: " + driver);
         }
@@ -108,7 +108,7 @@ public class MainClassReader {
     //this method loads all vehicles using the DriverToVehicleAssignment object instantiated above
     public static void loadVehicles() {
         if (!vehiclesloaded) {
-            vehicleAssignemnt.LoadAvailableVehicles();
+            vehicleAssignment.LoadAvailableVehicles();
             vehiclesloaded = true;
         }
     }
@@ -117,7 +117,7 @@ public class MainClassReader {
     public static void organizeVehiclesByMileage() {
         loadVehicles();
         //sorted vehicles by mileage
-        BinarySearchTree<Vehicle> vehicleTreeByMileage = vehicleAssignemnt.getVehicleTreeByMileage();
+        BinarySearchTree<Vehicle> vehicleTreeByMileage = vehicleAssignment.getVehicleTreeByMileage();
         Vehicle[] sortedVehiclesMileage = new Vehicle[vehicleTreeByMileage.getSize()];
 
 
@@ -134,7 +134,7 @@ public class MainClassReader {
         loadVehicles();
         //sorted vehicles by type
 
-        BinarySearchTree<Vehicle> vehicleTreeByType = vehicleAssignemnt.getVehicleTreeByType();
+        BinarySearchTree<Vehicle> vehicleTreeByType = vehicleAssignment.getVehicleTreeByType();
         Vehicle[] sortedVehiclesType = new Vehicle[vehicleTreeByType.getSize()];
 
         vehicleTreeByType.getAllElements(sortedVehiclesType);

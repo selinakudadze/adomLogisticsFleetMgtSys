@@ -26,7 +26,7 @@ public class Driver{
 
     private String driverID;
     private String driverName;
-    private String licenseTpye;
+    private String licenseType;
     private int assignedVehicleID;
     private int assignedOrderID;
     private String availability;
@@ -42,7 +42,7 @@ public class Driver{
     public Driver(String driverID,String driverName,String licenseTpye,String availability,String location,LinkedList<String> experience){
         this.driverID=driverID;
         this.driverName=driverName;
-        this.licenseTpye=licenseTpye;
+        this.licenseType =licenseTpye;
         this.assignedVehicleID=0;
         this.assignedOrderID=0;
         this.orderStatus=null;
@@ -54,7 +54,7 @@ public class Driver{
     }
     public Driver(String ID) {
         try {
-            File driverFile = new File("Adom Fleet Management System/src/dummyTextFiles/Drivers.txt");
+            File driverFile = new File("./src/dummyTextFiles/Drivers.txt");
             Scanner driverScanner = new Scanner(driverFile);
 
             while (driverScanner.hasNextLine()) {
@@ -73,7 +73,7 @@ public class Driver{
                     }
                     this.driverID=fields[0];
                     this.driverName=fields[1];
-                    this.licenseTpye=fields[2];
+                    this.licenseType =fields[2];
                     this.availability=fields[3];
                     this.currentDriverLocation=fields[4];
                     this.experience=experience;
@@ -101,7 +101,7 @@ public class Driver{
     }
 
     public String getLicenseType(){
-        return licenseTpye;
+        return licenseType;
     }
 
 
@@ -157,7 +157,7 @@ public class Driver{
     public String toString() {
         return "Driver ID: " + driverID +
                 "\nFull name: " + driverName +
-                "\nLicense Type: " + licenseTpye +
+                "\nLicense Type: " + licenseType +
                 "\nAvailability Status: " + availability +
                 "\nCurrent Location: " + currentDriverLocation +
                 "\nAssigned Order ID: " + (assignedOrderID==0 ? "Not assigned yet" : assignedOrderID)+

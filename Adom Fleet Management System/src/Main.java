@@ -56,7 +56,7 @@ public class Main {
                     assignOrders(scanner);
                     break;
                 case "9":
-                   reRoutes(scanner);
+                    reRoutes(scanner);
                     break;
                 case "10":
                     maintainVehicles(scanner);
