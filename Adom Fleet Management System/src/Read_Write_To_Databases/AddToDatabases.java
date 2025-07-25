@@ -554,7 +554,7 @@ public class AddToDatabases {
         }
     }
 
-    // Optional main method to test directly
+    // Optional main method to test directly, but you can call it in the main method of the system to create an order
     public static void main(String[] args) {
         try {
             runDataEntry();
